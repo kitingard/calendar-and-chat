@@ -2,26 +2,43 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 const Week = styled.div`
-font-family: Roboto;
+display: flex;
 width: 1113px;
-min-height: 811px;
-box-sizing: border-box;
-margin: 0px auto;
+margin: 1% auto;
+font-style: normal;
+font-weight: normal;
 background: #FFFFFF;
 border: 1px solid #DEDEDE;
+box-sizing: border-box;
+`;
+
+const DayWrapper = styled.div`
+
 `;
 
 const Day = styled.div`
-width: 100px;
-height: 100px;
-background-color: purple;
+width: 116px;
+margin: 28px 21px 20px;
+font-size: 18px;
+line-height: 35px;
+text-align: center;
 `;
 
-const Date = styled.div`
-width: 100px;
-height: 50px;
+const MeetingField = styled.div`
+height: 725px;
+background: #FFFFFF;
 border-right: 1px solid #DEDEDE;
-background-color: blue;
+border-top: 1px solid #DEDEDE;
+`;
+
+const Date = styled.p`
+width: 69px;
+margin: 0px;
+padding: 5px 89px 11px 0px;
+border-bottom: 1px solid #DEDEDE;
+font-size: 18px;
+line-height: 22px;
+text-align: center;
 `;
 
 type DaysArray = Array<{date: string, day: string, key: number}>
@@ -72,10 +89,12 @@ class Kalendar extends React.Component {
             <Week>
                 <React.Fragment>
                     {days.map(entry => (
-                        <div key={entry.key}>
-                        <Day>{entry.day}</Day>
-                            <Date>{entry.date}</Date> 
-                        </div>
+                        <DayWrapper key={entry.key}>
+                            <Day>{entry.day}</Day>
+                            <MeetingField>
+                                <Date>{entry.date}</Date>
+                            </MeetingField> 
+                        </DayWrapper>
                     ))}
                 </React.Fragment>
             </Week>
