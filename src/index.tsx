@@ -1,13 +1,24 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import { openMeeting } from './reducers/index';
+import { StoreState } from './types/index';
+
 import App from './App';
+import './assets/font/Roboto.css';
 import './index.css';
+
 import registerServiceWorker from './registerServiceWorker';
 
-import './assets/font/Roboto.css';
+const store = createStore<StoreState, any, any, any>(openMeeting, {
+  meetingOpen: false
+});
 
 ReactDOM.render(
-  <App />,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('root') as HTMLElement
 );
 registerServiceWorker();

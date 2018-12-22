@@ -1,15 +1,11 @@
 import * as React from 'react';
-import Calendar from './components/Calendar';
-import Meeting from './components/Meetings';
-
-
+import Calendar from './containers/Calendar'
 
 class App extends React.Component {
   public render() {
     return (
       <div className="App">
         <Calendar />
-        <Meeting />
       </div>
     );
   }
