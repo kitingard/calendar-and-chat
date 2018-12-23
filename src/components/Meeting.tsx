@@ -1,5 +1,8 @@
+// import * as moment from 'moment';
 import * as React from 'react';
 import styled from 'styled-components';
+
+// import 'moment/locale/ru';
 
 const MeetingWrapper = styled.div`
     position: fixed;
@@ -19,12 +22,24 @@ const MeetingTitle = styled.div`
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 `;
 
+
 function Meeting() {
-    return (
+    // const dayOfWeek = moment().format("dd");
+    // if ( dayOfWeek === 'вс') {
+    //     // let a: any;
+    //     // a = 'Воскресенье';
+    //     return (
+    //         <MeetingWrapper >
+    //             <MeetingTitle>Воскресенье</MeetingTitle>
+    //         </MeetingWrapper>
+    //     )
+    // } else {
+        return (
         <MeetingWrapper >
             <MeetingTitle>Встреча</MeetingTitle>
         </MeetingWrapper>
     )
+    // }
 }
 
 export default Meeting;

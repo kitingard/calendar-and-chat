@@ -1,6 +1,11 @@
+// import * as moment from 'moment';
 import * as React from 'react';
 import styled from 'styled-components';
+import { addWeek } from '../helpers/functions';
+
 import Meeting from '../components/Meeting';
+
+// import 'moment/locale/ru';
 
 const Week = styled.div`
     display: flex;
@@ -26,7 +31,7 @@ const Day = styled.div`
 `;
 
 const MeetingField = styled.div`
-    height: 725px;
+    height: 686px;
     background: #FFFFFF;
     border-right: 1px solid #DEDEDE;
     border-top: 1px solid #DEDEDE;
@@ -36,7 +41,8 @@ const Date = styled.p`
     width: 69px;
     margin: 0px;
     padding: 5px 89px 11px 0px;
-    border-bottom: 1px solid #DEDEDE;
+    border-right: 1px solid #DEDEDE;
+    border-top: 1px solid #DEDEDE;
     font-size: 18px;
     line-height: 22px;
     text-align: center;
@@ -44,55 +50,71 @@ const Date = styled.p`
 
 type DaysArray = Array<{date: string, day: string, key: number}>
 
+// type DaysArray = Array<{days: Array<string>, keys: Array<number>}>
+
+// const today = moment().format('dddd, MM MMM, dd DD.MM.YYYY');
+
 export interface Props {
     meetingOpen: boolean;
     onMeetingOpen?: () => void;
 }
 
 function Calendar({ meetingOpen, onMeetingOpen}: Props) {
+
+    // const dates : DaysArray = [
+    //     {
+    //         days: ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'],
+    //         keys: [0, 1, 2, 3, 4, 5, 6],
+    //     }   
+    // ]
+
+
     const days : DaysArray = [
         {
-            date: '29 окт',
+            date: ' дек',
             day: 'Понедельник',
             key: 1,
         },
         {
-            date: '30 окт',
+            date: ' дек',
             day: 'Вторник',
             key: 2,
         },
         {
-            date: '31 окт',
+            date: ' дек',
             day: 'Среда',
             key: 3,
         },
         {
-            date: '1 ноя',
+            date: ' дек',
             day: 'Четверг',
             key: 4,
         },
         {
-            date: '2 ноя',
+            date: ' дек',
             day: 'Пятница',
             key: 5,
         },
         {
-            date: '3 ноя',
+            date: ' дек',
             day: 'Суббота',
             key: 6,
         },
         {
-            date: '4 ноя',
+            date: ' дек',
             day: 'Воскресенье',
             key: 7,
         },
     ]
 
+
+    
+
     if (meetingOpen) {
         return (
             <Meeting />
         )
-    } 
+    }
     
     return (
         <Week>
@@ -100,9 +122,11 @@ function Calendar({ meetingOpen, onMeetingOpen}: Props) {
                 {days.map(entry => (
                     <DayWrapper key={entry.key}>
                         <Day>{entry.day}</Day>
-                        <MeetingField onDoubleClick={onMeetingOpen}>
-                            <Date>{entry.date}</Date>
-                        </MeetingField> 
+                        <Date>
+                        {addWeek()}{entry.date}
+                        {/* <div>{today}</div> */}
+                        </Date>
+                        <MeetingField onDoubleClick={onMeetingOpen}/>
                     </DayWrapper>
                 ))}
             </React.Fragment>

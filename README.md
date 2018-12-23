@@ -2141,7 +2141,7 @@ For more information see [Add Firebase to your JavaScript Project](https://fireb
 Open your `package.json` and add a `homepage` field for your project:
 
 ```json
-  "homepage": "https://myusername.github.io/my-app",
+  "homepage": "https://calendar-and-chat.netlify.com",
 ```
 
 or for a GitHub user page:
@@ -2156,7 +2156,7 @@ Create React App uses the `homepage` field to determine the root URL in the buil
 
 Now, whenever you run `npm run build`, you will see a cheat sheet with instructions on how to deploy to GitHub Pages.
 
-To publish it at [https://myusername.github.io/my-app](https://myusername.github.io/my-app), run:
+To publish it at [https://calendar-and-chat.netlify.com](https://calendar-and-chat.netlify.com), run:
 
 ```sh
 npm install --save gh-pages
