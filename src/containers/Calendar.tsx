@@ -5,14 +5,16 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { StoreState } from '../types/index';
 
-export function mapStateToProps({ meetingOpen }: StoreState) {
+export function mapStateToProps({ meetingOpen, chatOpen }: StoreState) {
     return {
+        chatOpen,
         meetingOpen,
     }
 }
 
-export function mapDispatchToProps(dispatch: Dispatch<actions.openMeetingAction>) {
+export function mapDispatchToProps(dispatch: Dispatch<actions.openModalAction>) {
     return {
+        onChatOpen: () => dispatch(actions.openChat()),
         onMeetingOpen: () => dispatch(actions.openMeeting()),
     }
 }

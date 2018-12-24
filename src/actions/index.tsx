@@ -1,13 +1,23 @@
 import * as constants from '../constants';
 
-export interface IMeeting {
+export interface Meeting {
     type: constants.OPEN_MEETING;
 }
 
-export type openMeetingAction = IMeeting;
+export interface Chat {
+    type: constants.OPEN_CHAT;
+}
 
-export function openMeeting(): IMeeting {
+export type openModalAction = Meeting | Chat;
+
+export function openMeeting(): Meeting {
     return {
         type: constants.OPEN_MEETING
+    }
+}
+
+export function openChat(): Chat {
+    return {
+        type: constants.OPEN_CHAT
     }
 }

@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import { openMeeting } from './reducers/index';
+import { openModal } from './reducers/index';
 import { StoreState } from './types/index';
 
 import App from './App';
@@ -11,8 +11,9 @@ import './index.css';
 
 import registerServiceWorker from './registerServiceWorker';
 
-const store = createStore<StoreState, any, any, any>(openMeeting, {
-  meetingOpen: false
+const store = createStore<StoreState, any, any, any>(openModal, {
+  chatOpen: false,
+  meetingOpen: false,
 });
 
 ReactDOM.render(

@@ -1,13 +1,16 @@
 // import * as moment from 'moment';
 import * as React from 'react';
 import styled from 'styled-components';
+import Chat from '../components/Chat';
+import Meeting from '../components/Meeting';
+
 import { addWeek } from '../helpers/functions';
 
-import Meeting from '../components/Meeting';
 
 // import 'moment/locale/ru';
 
 const Week = styled.div`
+    position: relative;
     display: flex;
     width: 1113px;
     margin: 1% auto;
@@ -48,6 +51,16 @@ const Date = styled.p`
     text-align: center;
 `;
 
+const ChatButton = styled.button`
+    position: absolute;
+    bottom: 13px;
+    right: 21px;
+    width: 58px;
+    height: 58px;
+    border: none;
+    background-color: blue;
+`;
+
 type DaysArray = Array<{date: string, day: string, key: number}>
 
 // type DaysArray = Array<{days: Array<string>, keys: Array<number>}>
@@ -56,10 +69,12 @@ type DaysArray = Array<{date: string, day: string, key: number}>
 
 export interface Props {
     meetingOpen: boolean;
+    chatOpen: boolean;
     onMeetingOpen?: () => void;
+    onChatOpen?: () => void;
 }
 
-function Calendar({ meetingOpen, onMeetingOpen}: Props) {
+function Calendar({ chatOpen, meetingOpen, onMeetingOpen, onChatOpen }: Props) {
 
     // const dates : DaysArray = [
     //     {
@@ -115,6 +130,12 @@ function Calendar({ meetingOpen, onMeetingOpen}: Props) {
             <Meeting />
         )
     }
+
+    if (chatOpen) {
+        return (
+            <Chat />
+        )
+    }
     
     return (
         <Week>
@@ -130,6 +151,7 @@ function Calendar({ meetingOpen, onMeetingOpen}: Props) {
                     </DayWrapper>
                 ))}
             </React.Fragment>
+            <ChatButton onClick={onChatOpen} />
         </Week>
     );
   }
