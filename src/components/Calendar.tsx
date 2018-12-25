@@ -1,8 +1,10 @@
 // import * as moment from 'moment';
 import * as React from 'react';
 import styled from 'styled-components';
+import icon from '../assets/img/icon.svg';
 import Chat from '../components/Chat';
 import Meeting from '../components/Meeting';
+
 
 import { addWeek } from '../helpers/functions';
 
@@ -12,8 +14,8 @@ import { addWeek } from '../helpers/functions';
 const Week = styled.div`
     position: relative;
     display: flex;
-    width: 1113px;
-    margin: 1% auto;
+    width: 100vw;
+    height: 100vh;
     font-style: normal;
     font-weight: normal;
     background: #FFFFFF;
@@ -22,11 +24,11 @@ const Week = styled.div`
 `;
 
 const DayWrapper = styled.div`
-
+    width: 100vw;
 `;
 
 const Day = styled.div`
-    width: 116px;
+    width: 10vw;
     margin: 28px 21px 20px;
     font-size: 18px;
     line-height: 35px;
@@ -34,14 +36,13 @@ const Day = styled.div`
 `;
 
 const MeetingField = styled.div`
-    height: 686px;
+    height: 85vh;
     background: #FFFFFF;
     border-right: 1px solid #DEDEDE;
     border-top: 1px solid #DEDEDE;
 `;
 
 const Date = styled.p`
-    width: 69px;
     margin: 0px;
     padding: 5px 89px 11px 0px;
     border-right: 1px solid #DEDEDE;
@@ -58,8 +59,13 @@ const ChatButton = styled.button`
     width: 58px;
     height: 58px;
     border: none;
-    background-color: blue;
+    background-color: transparent;
 `;
+
+const ChatIcon = styled.img`
+    margin: -2px 0px 0px -6px;
+`;
+
 
 type DaysArray = Array<{date: string, day: string, key: number}>
 
@@ -88,37 +94,37 @@ function Calendar({ chatOpen, meetingOpen, onMeetingOpen, onChatOpen }: Props) {
         {
             date: ' дек',
             day: 'Понедельник',
-            key: 1,
+            key: 0,
         },
         {
             date: ' дек',
             day: 'Вторник',
-            key: 2,
+            key: 1,
         },
         {
             date: ' дек',
             day: 'Среда',
-            key: 3,
+            key: 2,
         },
         {
             date: ' дек',
             day: 'Четверг',
-            key: 4,
+            key: 3,
         },
         {
             date: ' дек',
             day: 'Пятница',
-            key: 5,
+            key: 4,
         },
         {
             date: ' дек',
             day: 'Суббота',
-            key: 6,
+            key: 5,
         },
         {
             date: ' дек',
             day: 'Воскресенье',
-            key: 7,
+            key: 6,
         },
     ]
 
@@ -144,14 +150,14 @@ function Calendar({ chatOpen, meetingOpen, onMeetingOpen, onChatOpen }: Props) {
                     <DayWrapper key={entry.key}>
                         <Day>{entry.day}</Day>
                         <Date>
-                        {addWeek()}{entry.date}
+                        {addWeek(entry.key)}{entry.date}
                         {/* <div>{today}</div> */}
                         </Date>
                         <MeetingField onDoubleClick={onMeetingOpen}/>
                     </DayWrapper>
                 ))}
             </React.Fragment>
-            <ChatButton onClick={onChatOpen} />
+            <ChatButton onClick={onChatOpen}><ChatIcon src={icon} /></ChatButton>
         </Week>
     );
   }

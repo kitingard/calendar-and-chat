@@ -2,7 +2,7 @@ import * as moment from 'moment';
 
 import 'moment/locale/ru';
 
-export function addWeek() {
+export function addWeek(key: number) {
     const startOfWeek = moment().startOf('week');
     const endOfWeek = moment().endOf('week');
 
@@ -15,6 +15,6 @@ export function addWeek() {
     }
 
     return (
-        days[0].getDate()
+        days[key].getDate()
     )
 }
