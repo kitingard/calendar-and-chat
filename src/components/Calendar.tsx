@@ -1,13 +1,12 @@
-// import * as moment from 'moment';
-import * as React from 'react';
-import styled from 'styled-components';
-import icon from '../assets/img/icon.svg';
-import Chat from '../components/Chat';
-import Meeting from '../components/Meeting';
+// import * as moment from 'moment'
+import * as React from 'react'
+import styled from 'styled-components'
+import icon from '../assets/img/icon.svg'
+// import Chat from '../components/Chat'
+import Meeting from '../containers/Meeting'
 
 
-import { addWeek } from '../helpers/functions';
-
+import { addWeek} from '../helpers/functions';
 
 // import 'moment/locale/ru';
 
@@ -21,11 +20,11 @@ const Week = styled.div`
     background: #FFFFFF;
     border: 1px solid #DEDEDE;
     box-sizing: border-box;
-`;
+`
 
 const DayWrapper = styled.div`
     width: 100vw;
-`;
+`
 
 const Day = styled.div`
     width: 10vw;
@@ -33,14 +32,7 @@ const Day = styled.div`
     font-size: 18px;
     line-height: 35px;
     text-align: center;
-`;
-
-const MeetingField = styled.div`
-    height: 85vh;
-    background: #FFFFFF;
-    border-right: 1px solid #DEDEDE;
-    border-top: 1px solid #DEDEDE;
-`;
+`
 
 const Date = styled.p`
     margin: 0px;
@@ -50,7 +42,22 @@ const Date = styled.p`
     font-size: 18px;
     line-height: 22px;
     text-align: center;
-`;
+`
+
+// const DateDisabled = styled(Date)`
+//     background-color: rgba(196, 196, 196, 0.3);
+// `
+
+const MeetingField = styled.div`
+    height: 85vh;
+    background: #FFFFFF;
+    border-right: 1px solid #DEDEDE;
+    border-top: 1px solid #DEDEDE;
+`
+
+// const MeetingFieldDisabled = styled(MeetingField)`
+//     background-color: rgba(196, 196, 196, 0.3);
+// `
 
 const ChatButton = styled.button`
     position: absolute;
@@ -60,24 +67,21 @@ const ChatButton = styled.button`
     height: 58px;
     border: none;
     background-color: transparent;
-`;
+`
 
 const ChatIcon = styled.img`
     margin: -2px 0px 0px -6px;
-`;
-
-
-type DaysArray = Array<{date: string, day: string, key: number}>
+`
 
 // type DaysArray = Array<{days: Array<string>, keys: Array<number>}>
 
 // const today = moment().format('dddd, MM MMM, dd DD.MM.YYYY');
 
 export interface Props {
-    meetingOpen: boolean;
-    chatOpen: boolean;
-    onMeetingOpen?: () => void;
-    onChatOpen?: () => void;
+    meetingOpen: boolean
+    chatOpen: boolean
+    onMeetingOpen?: () => void
+    onChatOpen?: () => void
 }
 
 function Calendar({ chatOpen, meetingOpen, onMeetingOpen, onChatOpen }: Props) {
@@ -88,7 +92,7 @@ function Calendar({ chatOpen, meetingOpen, onMeetingOpen, onChatOpen }: Props) {
     //         keys: [0, 1, 2, 3, 4, 5, 6],
     //     }   
     // ]
-
+    type DaysArray = Array<{date: string, day: string, key: number}>
 
     const days : DaysArray = [
         {
@@ -128,20 +132,13 @@ function Calendar({ chatOpen, meetingOpen, onMeetingOpen, onChatOpen }: Props) {
         },
     ]
 
-
-    
-
     if (meetingOpen) {
         return (
             <Meeting />
         )
     }
 
-    if (chatOpen) {
-        return (
-            <Chat />
-        )
-    }
+    
     
     return (
         <Week>
@@ -149,17 +146,22 @@ function Calendar({ chatOpen, meetingOpen, onMeetingOpen, onChatOpen }: Props) {
                 {days.map(entry => (
                     <DayWrapper key={entry.key}>
                         <Day>{entry.day}</Day>
-                        <Date>
-                        {addWeek(entry.key)}{entry.date}
-                        {/* <div>{today}</div> */}
-                        </Date>
-                        <MeetingField onDoubleClick={onMeetingOpen}/>
+                        {/* {(entry.key === 5 || 6) 
+                        ? 
+                        <div>
+                            <DateDisabled>{addWeek(entry.key)}{entry.date}</DateDisabled>
+                            <MeetingFieldDisabled /></div> 
+                        :  */}
+                        <div>
+                            <Date>{addWeek(entry.key)}{entry.date}</Date>
+                            <MeetingField onDoubleClick={onMeetingOpen}/>
+                        </div>}
                     </DayWrapper>
                 ))}
             </React.Fragment>
             <ChatButton onClick={onChatOpen}><ChatIcon src={icon} /></ChatButton>
         </Week>
-    );
+    )
   }
 
-export default Calendar;
+export default Calendar

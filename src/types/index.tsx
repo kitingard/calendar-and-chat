@@ -1,4 +1,5 @@
 export interface StoreState {
-    meetingOpen: boolean;
-    chatOpen: boolean;
+    meetingOpen: boolean
+    meetingDisabled: boolean
+    chatOpen: boolean
 }

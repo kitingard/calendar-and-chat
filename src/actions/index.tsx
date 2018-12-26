@@ -1,23 +1,55 @@
-import * as constants from '../constants';
+import * as constants from '../constants'
 
-export interface Meeting {
-    type: constants.OPEN_MEETING;
+export interface MeetingOpen {
+    type: constants.OPEN_MEETING
 }
 
-export interface Chat {
-    type: constants.OPEN_CHAT;
+export interface MeetingClose {
+    type: constants.CLOSE_MEETING
 }
 
-export type openModalAction = Meeting | Chat;
+export interface MeetingDisabled {
+    type: constants.DISABLE_MEETING
+}
 
-export function openMeeting(): Meeting {
+export interface ChatOpen {
+    type: constants.OPEN_CHAT
+}
+
+export interface ChatClose {
+    type: constants.CLOSE_CHAT
+}
+
+export type openModalAction = MeetingOpen | MeetingClose | ChatOpen | ChatClose | MeetingDisabled
+
+export function openMeeting(): MeetingOpen {
     return {
         type: constants.OPEN_MEETING
     }
 }
 
-export function openChat(): Chat {
+export function closeMeeting(): MeetingClose {
+    return {
+        type: constants.CLOSE_MEETING
+    }
+}
+
+export function openChat(): ChatOpen {
     return {
         type: constants.OPEN_CHAT
+    }
+}
+
+export function closeChat(): ChatClose {
+    return {
+        type: constants.CLOSE_CHAT
+    }
+}
+
+// export type disabledMeetingAction = MeetingDisabled
+
+export function disableMeeting(): MeetingDisabled {
+    return {
+        type: constants.DISABLE_MEETING
     }
 }
