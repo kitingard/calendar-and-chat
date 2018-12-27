@@ -12,6 +12,10 @@ export interface MeetingDisabled {
     type: constants.DISABLE_MEETING
 }
 
+export interface MemberAdd {
+    type: constants.ADD_MEMBER
+}
+
 export interface ChatOpen {
     type: constants.OPEN_CHAT
 }
@@ -20,7 +24,7 @@ export interface ChatClose {
     type: constants.CLOSE_CHAT
 }
 
-export type openModalAction = MeetingOpen | MeetingClose | ChatOpen | ChatClose | MeetingDisabled
+export type openModalAction = MeetingOpen | MeetingClose | ChatOpen | ChatClose | MeetingDisabled | MemberAdd
 
 export function openMeeting(): MeetingOpen {
     return {
@@ -31,6 +35,12 @@ export function openMeeting(): MeetingOpen {
 export function closeMeeting(): MeetingClose {
     return {
         type: constants.CLOSE_MEETING
+    }
+}
+
+export function addMember(): MemberAdd {
+    return {
+        type: constants.ADD_MEMBER
     }
 }
 

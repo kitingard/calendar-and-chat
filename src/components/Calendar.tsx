@@ -44,9 +44,9 @@ const Date = styled.p`
     text-align: center;
 `
 
-// const DateDisabled = styled(Date)`
-//     background-color: rgba(196, 196, 196, 0.3);
-// `
+const DateDisabled = styled(Date)`
+    background-color: rgba(196, 196, 196, 0.3);
+`
 
 const MeetingField = styled.div`
     height: 85vh;
@@ -55,9 +55,9 @@ const MeetingField = styled.div`
     border-top: 1px solid #DEDEDE;
 `
 
-// const MeetingFieldDisabled = styled(MeetingField)`
-//     background-color: rgba(196, 196, 196, 0.3);
-// `
+const MeetingFieldDisabled = styled(MeetingField)`
+    background-color: rgba(196, 196, 196, 0.3);
+`
 
 const ChatButton = styled.button`
     position: absolute;
@@ -136,9 +136,7 @@ function Calendar({ chatOpen, meetingOpen, onMeetingOpen, onChatOpen }: Props) {
         return (
             <Meeting />
         )
-    }
-
-    
+    } 
     
     return (
         <Week>
@@ -146,18 +144,18 @@ function Calendar({ chatOpen, meetingOpen, onMeetingOpen, onChatOpen }: Props) {
                 {days.map(entry => (
                     <DayWrapper key={entry.key}>
                         <Day>{entry.day}</Day>
-                        {/* {(entry.key === 5 || 6) 
+                        {(entry.key === 6 || entry.key === 5) 
                         ? 
                         <div>
                             <DateDisabled>{addWeek(entry.key)}{entry.date}</DateDisabled>
-                            <MeetingFieldDisabled /></div> 
-                        :  */}
+                            <MeetingFieldDisabled />
+                        </div> 
+                        : 
                         <div>
                             <Date>{addWeek(entry.key)}{entry.date}</Date>
                             <MeetingField onDoubleClick={onMeetingOpen}/>
                         </div>}
-                    </DayWrapper>
-                ))}
+                    </DayWrapper>))}
             </React.Fragment>
             <ChatButton onClick={onChatOpen}><ChatIcon src={icon} /></ChatButton>
         </Week>

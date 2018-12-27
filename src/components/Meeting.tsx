@@ -2,11 +2,16 @@ import * as moment from 'moment'
 import * as React from 'react'
 import styled from 'styled-components'
 import cross from '../assets/img/cross.svg'
+import Button from '../styles/Button'
 import MeetingWrapper from '../styles/MeetingWrapper'
 import ModalTitle from '../styles/ModalTitle'
 
-
 import 'moment/locale/ru'
+
+// const MeetingTitle = styled.(ModalTitle)`
+// background: #D0D0D0;
+// border-radius: 2px 2px 0px 0px;
+// `
 
 const MeetingForm = styled.div`
     display: flex;
@@ -60,16 +65,26 @@ const MeetingSelect = styled.select`
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 3px;
     font-size: 13px;
-    text-indent: 5px;
 `
 
 const MeetingSelectOption = styled.option`
     
 `
 
+const MembersList = styled.ul`
+    padding: 0;
+    margin: 0;
+    list-style: none;
+`
+
+const MembersLi = styled.li`
+    padding: 0;
+    margin: 0;
+`
+
 const MeetingButton = styled.button`
     position: absolute;
-    bottom: 165px;
+    bottom: 170px;
     right: 50px;
     padding: 0px;
     color: #2F81CD;
@@ -90,24 +105,40 @@ const CrossIcon = styled.img`
     position: absolute;
     right: 0px;
 `
+const CancelBtn = styled(Button)`
+    position: absolute;
+    bottom: 24px;
+    right: 137px;
+    color: #000000;
+`
+const SaveBtn = styled(Button)`
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+    background: #2F81CD;
+    color: #FFFFFF;
+`
 
 const today:string = moment().format('dd DD.MM.YYYY')
 export interface Props {
     meetingOpen: boolean
+    memberState: string
+    memberAdd: boolean
     onMeetingClose?: () => void
+    onAddMember?: () => void
 }
 
-function Meeting({onMeetingClose}: Props) {
+function Meeting({ memberAdd, onMeetingClose, onAddMember}: Props) {
 
     type hoursType = Array<{hour: string, key: number}>
 
     const hours: hoursType = [
         {
-            hour: '9:00',
+            hour: '09:00',
             key: 0,
         },
         {
-            hour: '9:30',
+            hour: '09:30',
             key: 1,
         },
         {
@@ -183,6 +214,14 @@ function Meeting({onMeetingClose}: Props) {
             key: 19,
         },
     ]
+
+    // function add() {
+    //     if (memberAdd) {
+    //         return (<MembersLi><MeetingInput type='text'/></MembersLi>)
+    //     }
+    // }
+    
+    
         return (
         <MeetingWrapper >
             <ModalTitle>
@@ -211,8 +250,13 @@ function Meeting({onMeetingClose}: Props) {
                 </React.Fragment>
                 </MeetingSelect>
                 <MeetingLabel>Участники встречи</MeetingLabel>
-                <MeetingInput type='text'/>
-                <MeetingButton>Добавить участника</MeetingButton>
+                <MembersList>
+                        <MembersLi><MeetingInput type='text'/></MembersLi>
+                        {/* {add()} */}
+                </MembersList>
+                <MeetingButton onClick={onAddMember}>Добавить участника</MeetingButton>
+                <CancelBtn>Отмена</CancelBtn>
+                <SaveBtn>Сохранить</SaveBtn>
             </MeetingForm>
         </MeetingWrapper>
     )

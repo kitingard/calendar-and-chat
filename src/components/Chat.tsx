@@ -1,8 +1,8 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import cross from '../assets/img/cross.svg'
-
+import chaticon from '../assets/img/chat-icon.svg'
 import ModalTitle from '../styles/ModalTitle'
+
 
 export interface Props {
     chatOpen: boolean
@@ -19,31 +19,58 @@ const ChatWrapper = styled.div`
     border: 1px solid #C5C4C4;
     border-radius: 6px 6px 0px 0px;
 `
+const ChatTitle = styled(ModalTitle)`
+    padding: 10px 125px 10px 103px;
+    color: #FFFFFF;
+    background: #3D454C;
+    border-radius: 6px 6px 0px 0px;
+`
 const CloseBtn = styled.div`
     position: absolute;
-    top: 16px;
-    right: 18px;
-    width: 11px;
-    height: 11px;
+    top: 20px;
+    right: 21px;
+    width: 19px;
+    height: 10px;
 `
-const CrossIcon = styled.img`
+const CloseIcon = styled.div`
+    width: 19px;
+    height: 2px;
+    background: #FFFFFF;
+    border-radius: 0px 0px 6px 0px;
+`
+const ChatIcon = styled.img`
     position: absolute;
-    right: 0px;
+    top: 9px;
+    left: 16px;
+`
+const ChatInput = styled.textarea`
+    position: absolute;
+    bottom: 22px;
+    left: 16px;
+    width: 302px;
+    height: 60px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 3px 3px 6px 3px;
+`
+const None = styled.div`
+    display: none;
 `
 
 function Chat({chatOpen, onChatClose}:Props) {
         if (chatOpen) {
             return (
                 <ChatWrapper>
-                    <ModalTitle>
-                        Чат{chatOpen}
-                        <CloseBtn onClick={onChatClose}><CrossIcon src={cross} /></CloseBtn>
-                    </ModalTitle>
+                    <ChatTitle>
+                        <ChatIcon src={chaticon} />
+                        Чат-Форум{chatOpen}
+                        <CloseBtn onClick={onChatClose}><CloseIcon /></CloseBtn>
+                    </ChatTitle>
+                    <ChatInput />
                 </ChatWrapper>
             )
         } else {
             return(
-                <div />
+                <None />
             )
         }
 }

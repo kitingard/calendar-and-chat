@@ -1,5 +1,5 @@
 import { openModalAction } from '../actions'
-import { CLOSE_CHAT, CLOSE_MEETING, DISABLE_MEETING, OPEN_CHAT, OPEN_MEETING } from '../constants/index'
+import { ADD_MEMBER, CLOSE_CHAT, CLOSE_MEETING, DISABLE_MEETING, OPEN_CHAT, OPEN_MEETING } from '../constants/index'
 import { StoreState } from '../types/index'
 
 export function openModal(state: StoreState, action: openModalAction):StoreState {
@@ -14,6 +14,8 @@ export function openModal(state: StoreState, action: openModalAction):StoreState
             return { ...state, chatOpen: false }
         case DISABLE_MEETING: 
             return { ...state, meetingDisabled: true }
+        case ADD_MEMBER: 
+            return { ...state, memberAdd: true }
       }
       return state
   }

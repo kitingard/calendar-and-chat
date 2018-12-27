@@ -15,6 +15,8 @@ const store = createStore<StoreState, any, any, any>(openModal, {
   chatOpen: false,
   meetingDisabled: false,
   meetingOpen: false,
+  memberAdd: false,
+  memberState: 'active',
 })
 
 ReactDOM.render(

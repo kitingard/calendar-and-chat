@@ -12,3 +12,6 @@ export type CLOSE_CHAT = typeof CLOSE_CHAT
 
 export const DISABLE_MEETING = 'DISABLE_MEETING'
 export type DISABLE_MEETING = typeof DISABLE_MEETING
+
+export const ADD_MEMBER = 'ADD_MEMBER'
+export type ADD_MEMBER = typeof ADD_MEMBER
