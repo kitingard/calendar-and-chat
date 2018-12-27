@@ -3,7 +3,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 import icon from '../assets/img/icon.svg'
 // import Chat from '../components/Chat'
-import Meeting from '../containers/Meeting'
+// import Meeting from '../containers/Meeting'
 
 
 import { addWeek} from '../helpers/functions';
@@ -24,6 +24,7 @@ const Week = styled.div`
 
 const DayWrapper = styled.div`
     width: 100vw;
+    height: 100vh;
 `
 
 const Day = styled.div`
@@ -53,10 +54,14 @@ const MeetingField = styled.div`
     background: #FFFFFF;
     border-right: 1px solid #DEDEDE;
     border-top: 1px solid #DEDEDE;
+    @media(min-height: 1080px){
+        height: 89vh;
+    }
 `
 
 const MeetingFieldDisabled = styled(MeetingField)`
     background-color: rgba(196, 196, 196, 0.3);
+
 `
 
 const ChatButton = styled.button`
@@ -78,13 +83,11 @@ const ChatIcon = styled.img`
 // const today = moment().format('dddd, MM MMM, dd DD.MM.YYYY');
 
 export interface Props {
-    meetingOpen: boolean
-    chatOpen: boolean
     onMeetingOpen?: () => void
     onChatOpen?: () => void
 }
 
-function Calendar({ chatOpen, meetingOpen, onMeetingOpen, onChatOpen }: Props) {
+function Calendar({ onMeetingOpen, onChatOpen }: Props) {
 
     // const dates : DaysArray = [
     //     {
@@ -131,12 +134,6 @@ function Calendar({ chatOpen, meetingOpen, onMeetingOpen, onChatOpen }: Props) {
             key: 6,
         },
     ]
-
-    if (meetingOpen) {
-        return (
-            <Meeting />
-        )
-    } 
     
     return (
         <Week>

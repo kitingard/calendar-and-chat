@@ -8,6 +8,8 @@ const MeetingWrapper = styled.div`
     height: 444px;
     margin-left: -166px;
     background: #FFFFFF;
+    border: 1px solid #C5C4C4;
+    border-radius: 2px 2px 0px 0px;
 `;
 
 export default MeetingWrapper;

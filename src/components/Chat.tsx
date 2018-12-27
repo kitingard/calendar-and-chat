@@ -16,7 +16,6 @@ const ChatWrapper = styled.div`
     width: 332px;
     height: 444px;
     background: #FFFFFF;
-    border: 1px solid #C5C4C4;
     border-radius: 6px 6px 0px 0px;
 `
 const ChatTitle = styled(ModalTitle)`

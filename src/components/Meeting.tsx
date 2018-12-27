@@ -118,6 +118,9 @@ const SaveBtn = styled(Button)`
     background: #2F81CD;
     color: #FFFFFF;
 `
+const None = styled.div`
+    display: none;
+`
 
 const today:string = moment().format('dd DD.MM.YYYY')
 export interface Props {
@@ -128,7 +131,7 @@ export interface Props {
     onAddMember?: () => void
 }
 
-function Meeting({ memberAdd, onMeetingClose, onAddMember}: Props) {
+function Meeting({ meetingOpen, onMeetingClose, onAddMember}: Props) {
 
     type hoursType = Array<{hour: string, key: number}>
 
@@ -221,7 +224,7 @@ function Meeting({ memberAdd, onMeetingClose, onAddMember}: Props) {
     //     }
     // }
     
-    
+    if (meetingOpen) {
         return (
         <MeetingWrapper >
             <ModalTitle>
@@ -260,6 +263,14 @@ function Meeting({ memberAdd, onMeetingClose, onAddMember}: Props) {
             </MeetingForm>
         </MeetingWrapper>
     )
+    }
+        else {
+            return(
+                <None />
+            )
+        }
+    
+        
 }
 
 export default Meeting
