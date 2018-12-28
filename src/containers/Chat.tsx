@@ -5,9 +5,10 @@ import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { StoreState } from '../types/index'
 
-export function mapStateToProps({ chatOpen }: StoreState) {
+export function mapStateToProps({ chatOpen, profileOpen }: StoreState) {
     return {
-        chatOpen
+        chatOpen,
+        profileOpen,
     }
 }
 
@@ -15,6 +16,8 @@ export function mapDispatchToProps(dispatch: Dispatch<actions.openModalAction>) 
     return {
         onChatClose: () => dispatch(actions.closeChat()),
         onChatOpen: () => dispatch(actions.openChat()),
+        onProfileClose: () => dispatch(actions.closeProfile()),
+        onProfileOpen: () => dispatch(actions.openProfile()),
     }
 }
 

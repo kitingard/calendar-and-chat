@@ -20,6 +20,7 @@ export function mapDispatchToProps(dispatch: Dispatch<actions.openModalAction>) 
         onAddMember: () => dispatch(actions.addMember()),
         onMeetingClose: () => dispatch(actions.closeMeeting()),
         onMeetingOpen: () => dispatch(actions.openMeeting()),
+        onStopAddMember: () => dispatch(actions.addMember()),
     }
 }
 

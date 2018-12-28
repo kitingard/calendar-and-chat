@@ -16,6 +16,10 @@ export interface MemberAdd {
     type: constants.ADD_MEMBER
 }
 
+export interface StopMemberAdd {
+    type: constants.STOP_ADD_MEMBER
+}
+
 export interface ChatOpen {
     type: constants.OPEN_CHAT
 }
@@ -24,7 +28,15 @@ export interface ChatClose {
     type: constants.CLOSE_CHAT
 }
 
-export type openModalAction = MeetingOpen | MeetingClose | ChatOpen | ChatClose | MeetingDisabled | MemberAdd
+export interface ProfileOpen {
+    type: constants.OPEN_PROFILE
+}
+
+export interface ProfileClose {
+    type: constants.CLOSE_PROFILE
+}
+
+export type openModalAction = MeetingOpen | MeetingClose | ChatOpen | ChatClose | MeetingDisabled | MemberAdd | ProfileOpen | ProfileClose | StopMemberAdd
 
 export function openMeeting(): MeetingOpen {
     return {
@@ -44,6 +56,12 @@ export function addMember(): MemberAdd {
     }
 }
 
+export function stopAddMember(): StopMemberAdd {
+    return {
+        type: constants.STOP_ADD_MEMBER
+    }
+}
+
 export function openChat(): ChatOpen {
     return {
         type: constants.OPEN_CHAT
@@ -53,6 +71,18 @@ export function openChat(): ChatOpen {
 export function closeChat(): ChatClose {
     return {
         type: constants.CLOSE_CHAT
+    }
+}
+
+export function openProfile(): ProfileOpen {
+    return {
+        type: constants.OPEN_PROFILE
+    }
+}
+
+export function closeProfile(): ProfileClose {
+    return {
+        type: constants.CLOSE_PROFILE
     }
 }
 

@@ -2,12 +2,9 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import icon from '../assets/img/icon.svg'
-// import Chat from '../components/Chat'
-// import Meeting from '../containers/Meeting'
-
+import days from '../assets/strings/calendar/CalendarText'
 
 import { addWeek} from '../helpers/functions';
-
 // import 'moment/locale/ru';
 
 const Week = styled.div`
@@ -21,12 +18,13 @@ const Week = styled.div`
     border: 1px solid #DEDEDE;
     box-sizing: border-box;
 `
-
 const DayWrapper = styled.div`
     width: 100vw;
     height: 100vh;
 `
-
+// const CurrentDayWrapper = styled(DayWrapper)`
+//     background: rgba(47, 129, 205, 0.1);
+// `
 const Day = styled.div`
     width: 10vw;
     margin: 28px 21px 20px;
@@ -34,7 +32,10 @@ const Day = styled.div`
     line-height: 35px;
     text-align: center;
 `
-
+// const CurrentDay = styled(Day)`
+//     border-left: 1px solid #DEDEDE;
+//     border-right: 1px solid #DEDEDE;
+// `
 const Date = styled.p`
     margin: 0px;
     padding: 5px 89px 11px 0px;
@@ -44,11 +45,9 @@ const Date = styled.p`
     line-height: 22px;
     text-align: center;
 `
-
 const DateDisabled = styled(Date)`
     background-color: rgba(196, 196, 196, 0.3);
 `
-
 const MeetingField = styled.div`
     height: 85vh;
     background: #FFFFFF;
@@ -58,12 +57,9 @@ const MeetingField = styled.div`
         height: 89vh;
     }
 `
-
 const MeetingFieldDisabled = styled(MeetingField)`
     background-color: rgba(196, 196, 196, 0.3);
-
 `
-
 const ChatButton = styled.button`
     position: absolute;
     bottom: 13px;
@@ -73,14 +69,12 @@ const ChatButton = styled.button`
     border: none;
     background-color: transparent;
 `
-
 const ChatIcon = styled.img`
     margin: -2px 0px 0px -6px;
 `
-
 // type DaysArray = Array<{days: Array<string>, keys: Array<number>}>
-
 // const today = moment().format('dddd, MM MMM, dd DD.MM.YYYY');
+
 
 export interface Props {
     onMeetingOpen?: () => void
@@ -95,45 +89,6 @@ function Calendar({ onMeetingOpen, onChatOpen }: Props) {
     //         keys: [0, 1, 2, 3, 4, 5, 6],
     //     }   
     // ]
-    type DaysArray = Array<{date: string, day: string, key: number}>
-
-    const days : DaysArray = [
-        {
-            date: ' дек',
-            day: 'Понедельник',
-            key: 0,
-        },
-        {
-            date: ' дек',
-            day: 'Вторник',
-            key: 1,
-        },
-        {
-            date: ' дек',
-            day: 'Среда',
-            key: 2,
-        },
-        {
-            date: ' дек',
-            day: 'Четверг',
-            key: 3,
-        },
-        {
-            date: ' дек',
-            day: 'Пятница',
-            key: 4,
-        },
-        {
-            date: ' дек',
-            day: 'Суббота',
-            key: 5,
-        },
-        {
-            date: ' дек',
-            day: 'Воскресенье',
-            key: 6,
-        },
-    ]
     
     return (
         <Week>
@@ -147,7 +102,7 @@ function Calendar({ onMeetingOpen, onChatOpen }: Props) {
                             <DateDisabled>{addWeek(entry.key)}{entry.date}</DateDisabled>
                             <MeetingFieldDisabled />
                         </div> 
-                        : 
+                        :
                         <div>
                             <Date>{addWeek(entry.key)}{entry.date}</Date>
                             <MeetingField onDoubleClick={onMeetingOpen}/>

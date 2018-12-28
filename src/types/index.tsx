@@ -4,4 +4,5 @@ export interface StoreState {
     memberState: string
     memberAdd: boolean
     chatOpen: boolean
+    profileOpen: boolean
 }

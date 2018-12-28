@@ -45,3 +45,7 @@ export function addWeek(key: number) {
         datesObject.number
     )
 }
+
+// export function addMember(key: number) {
+//     //нужно создать input
+// }

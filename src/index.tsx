@@ -17,6 +17,7 @@ const store = createStore<StoreState, any, any, any>(openModal, {
   meetingOpen: false,
   memberAdd: false,
   memberState: 'active',
+  profileOpen: false,
 })
 
 ReactDOM.render(

@@ -2,13 +2,13 @@ import * as moment from 'moment'
 import * as React from 'react'
 import styled from 'styled-components'
 import cross from '../assets/img/cross.svg'
+import hours from '../assets/strings/meeting/MeetingText'
 import Button from '../styles/Button'
 import MeetingWrapper from '../styles/MeetingWrapper'
 import ModalTitle from '../styles/ModalTitle'
 
 import 'moment/locale/ru'
-
-// const MeetingTitle = styled.(ModalTitle)`
+// const MeetingTitleDisabled = styled.(ModalTitle)`
 // background: #D0D0D0;
 // border-radius: 2px 2px 0px 0px;
 // `
@@ -83,10 +83,8 @@ const MembersLi = styled.li`
 `
 
 const MeetingButton = styled.button`
-    position: absolute;
-    bottom: 170px;
-    right: 50px;
     padding: 0px;
+    margin-left: 135px;
     color: #2F81CD;
     background-color: transparent;
     border: none;
@@ -129,100 +127,17 @@ export interface Props {
     memberAdd: boolean
     onMeetingClose?: () => void
     onAddMember?: () => void
+    onStopAddMember?: () => void
 }
 
-function Meeting({ meetingOpen, onMeetingClose, onAddMember}: Props) {
+function Meeting({ memberAdd, meetingOpen, onMeetingClose, onAddMember, onStopAddMember}: Props) {
 
-    type hoursType = Array<{hour: string, key: number}>
+    let i:number = 0
 
-    const hours: hoursType = [
-        {
-            hour: '09:00',
-            key: 0,
-        },
-        {
-            hour: '09:30',
-            key: 1,
-        },
-        {
-            hour: '10:00',
-            key: 2,
-        },
-        {
-            hour: '10:30',
-            key: 3,
-        },
-        {
-            hour: '11:00',
-            key: 4,
-        },
-        {
-            hour: '11:30',
-            key: 5,
-        },
-        {
-            hour: '12:00',
-            key: 6,
-        },
-        {
-            hour: '12:30',
-            key: 7,
-        },
-        {
-            hour: '13:00',
-            key: 8,
-        },
-        {
-            hour: '13:30',
-            key: 9,
-        },
-        {
-            hour: '14:00',
-            key: 10,
-        },
-        {
-            hour: '14:30',
-            key: 11,
-        },
-        {
-            hour: '15:00',
-            key: 12,
-        },
-        {
-            hour: '15:30',
-            key: 13,
-        },
-        {
-            hour: '16:00',
-            key: 14,
-        },
-        {
-            hour: '16:30',
-            key: 15,
-        },
-        {
-            hour: '17:00',
-            key: 16,
-        },
-        {
-            hour: '17:30',
-            key: 17,
-        },
-        {
-            hour: '18:00',
-            key: 18,
-        },
-        {
-            hour: '18:30',
-            key: 19,
-        },
-    ]
-
-    // function add() {
-    //     if (memberAdd) {
-    //         return (<MembersLi><MeetingInput type='text'/></MembersLi>)
-    //     }
-    // }
+    function add() {
+        i=i+1
+        return (<MembersLi key={i}><MeetingInput type='text'/></MembersLi>)
+    }
     
     if (meetingOpen) {
         return (
@@ -254,8 +169,12 @@ function Meeting({ meetingOpen, onMeetingClose, onAddMember}: Props) {
                 </MeetingSelect>
                 <MeetingLabel>Участники встречи</MeetingLabel>
                 <MembersList>
-                        <MembersLi><MeetingInput type='text'/></MembersLi>
-                        {/* {add()} */}
+                        <MembersLi key={i}><MeetingInput type='text' /></MembersLi>
+                        {(memberAdd)?
+                        add()
+                        :
+                        <None />
+                        }
                 </MembersList>
                 <MeetingButton onClick={onAddMember}>Добавить участника</MeetingButton>
                 <CancelBtn>Отмена</CancelBtn>
