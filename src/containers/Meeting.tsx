@@ -1,5 +1,5 @@
 import * as actions from '../actions';
-import Meetings from '../components/Meeting';
+import Meetings from '../components/Meeting/Meeting';
 
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';

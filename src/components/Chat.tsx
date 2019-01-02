@@ -101,7 +101,7 @@ function Chat({chatOpen, onChatClose, onProfileClose, onProfileOpen, profileOpen
             return (
                 <ChatWrapper>
                     {(profileOpen)?
-                    <div>
+                    <React.Fragment>
                         <ChatTitle>
                         <ProfileBtn onClick={onProfileClose}><ChatIcon src={profileicon} /></ProfileBtn>
                         Профиль{!chatOpen}
@@ -115,16 +115,16 @@ function Chat({chatOpen, onChatClose, onProfileClose, onProfileOpen, profileOpen
                             <MeetingLabel>О себе</MeetingLabel>
                             <ProfileInput placeholder='Self description'/>
                         </MeetingForm>
-                    </div>
+                    </React.Fragment>
                     :
-                    <div>
+                    <React.Fragment>
                       <ChatTitle>
                         <ProfileBtn onClick={onProfileOpen}><ChatIcon src={chaticon} /></ProfileBtn>
                         Чат-Форум{chatOpen}
                         <CloseBtn onClick={onChatClose}><CloseIcon /></CloseBtn>
                         </ChatTitle>
                         <ChatInput />  
-                    </div>
+                    </React.Fragment>
                     } 
                 </ChatWrapper>
             )

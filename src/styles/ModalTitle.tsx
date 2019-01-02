@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const ModalTitle = styled.div`
 width: 104px;
@@ -8,4 +8,4 @@ text-indent: 5px;
 border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 `;
 
-export default ModalTitle;
+export default ModalTitle

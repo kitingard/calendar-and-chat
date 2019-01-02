@@ -16,7 +16,7 @@ const store = createStore<StoreState, any, any, any>(openModal, {
   meetingDisabled: false,
   meetingOpen: false,
   memberAdd: false,
-  memberState: 'active',
+  memberState: 'create',
   profileOpen: false,
 })
 

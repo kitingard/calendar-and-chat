@@ -19,7 +19,11 @@ export function openModal(state: StoreState, action: openModalAction):StoreState
         case DISABLE_MEETING: 
             return { ...state, meetingDisabled: true }
         case ADD_MEMBER: 
-            return { ...state, memberAdd: true }
+            return { ...state, members: [...state.members, {
+                id: Object.keys(state.members).length,
+                name: '',
+                visited: false,
+              }],}
         case STOP_ADD_MEMBER: 
             return { ...state, memberAdd: false }
       }

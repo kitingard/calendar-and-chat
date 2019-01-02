@@ -98,15 +98,15 @@ function Calendar({ onMeetingOpen, onChatOpen }: Props) {
                         <Day>{entry.day}</Day>
                         {(entry.key === 6 || entry.key === 5) 
                         ? 
-                        <div>
+                        <React.Fragment>
                             <DateDisabled>{addWeek(entry.key)}{entry.date}</DateDisabled>
                             <MeetingFieldDisabled />
-                        </div> 
+                        </React.Fragment>
                         :
-                        <div>
+                        <React.Fragment>
                             <Date>{addWeek(entry.key)}{entry.date}</Date>
                             <MeetingField onDoubleClick={onMeetingOpen}/>
-                        </div>}
+                        </React.Fragment>}
                     </DayWrapper>))}
             </React.Fragment>
             <ChatButton onClick={onChatOpen}><ChatIcon src={icon} /></ChatButton>

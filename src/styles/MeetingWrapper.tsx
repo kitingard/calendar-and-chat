@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const MeetingWrapper = styled.div`
     position: fixed;
@@ -12,4 +12,4 @@ const MeetingWrapper = styled.div`
     border-radius: 2px 2px 0px 0px;
 `;
 
-export default MeetingWrapper;
+export default MeetingWrapper
