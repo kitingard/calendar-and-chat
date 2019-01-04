@@ -6,8 +6,8 @@ import cross from '../../assets/img/cross.svg'
 import Button from '../../styles/Button'
 import MeetingWrapper from '../../styles/MeetingWrapper'
 import ModalTitle from '../../styles/ModalTitle'
-// import MeetingFieldCreate from './meetingField/MeetingFieldCreate'
-import MeetingFieldHold from './meetingField/MeetingFieldHold'
+import MeetingFieldCreate from './meetingField/MeetingFieldCreate'
+// import MeetingFieldHold from './meetingField/MeetingFieldHold'
 import MembersCreate from './MembersCreate'
 
 
@@ -133,7 +133,8 @@ function Meeting({ meetingOpen, onMeetingClose, onAddMember, onStopAddMember, me
                 <CloseBtn onClick={onMeetingClose}><CrossIcon src={cross} /></CloseBtn>
             </ModalTitle>
             <MeetingFormWrapper>
-                <MeetingFieldHold /> 
+                <MeetingFieldCreate />
+                {/* <MeetingFieldHold />  */}
                 {/* <MeetingLabel htmlFor='meetingTheme'>Тема встречи</MeetingLabel>
                 <MeetingInput id='meetingTheme' type='text'/>
                 <MeetingText>День встречи</MeetingText>

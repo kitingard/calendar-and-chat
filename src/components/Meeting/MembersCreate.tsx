@@ -74,12 +74,12 @@ const MeetingButton = styled.button`
 const defaultMembers = {
   '0': {
     id: 0,
-    name: 'Лол',
+    name: 'Маша Сидорова',
     visited: false,
   },
   '1': {
     id: 1,
-    name: 'Кек',
+    name: 'Паша Иванов',
     visited: true,
   },
 }
@@ -90,7 +90,7 @@ class NewMember extends React.Component {
       members: defaultMembers,
     }
   
-    // public onAddMember = (member: any) => this.setState(state => ({
+    // public onAddMember = (member: string) => this.setState(state => ({
     //   members: [...state.members, {
     //     name: member,
     //     id: Object.keys(state.members).length,

@@ -75,7 +75,7 @@ export default class MeetingFieldCreate extends React.Component {
             <React.Fragment>
                 <MeetingLabel htmlFor='meetingTheme'>Тема встречи</MeetingLabel>
                 <MeetingInput id='meetingTheme' type='text' value={this.state.meetingTheme} onChange={this.onThemeChange}/>
-                <p>{this.state.meetingTheme}</p>
+                {/* <p>{this.state.meetingTheme}</p> */}
                 <MeetingText>День встречи</MeetingText>
                 <MeetingField>{today}</MeetingField>
                 <MeetingLabel htmlFor='meetingStartTime'>Начало встречи</MeetingLabel>
@@ -86,7 +86,7 @@ export default class MeetingFieldCreate extends React.Component {
                     ))}
                 </React.Fragment>
                 </MeetingSelect>
-                <p>{this.state.meetingStartTime}</p>
+                {/* <p>{this.state.meetingStartTime}</p> */}
                 <MeetingLabel htmlFor='meetingEndTime'>Окончание встречи</MeetingLabel>
                 <MeetingSelect id='meetingEndTime' value={this.state.meetingEndTime} onChange={this.onEndTimeChange}>
                     <React.Fragment>
@@ -95,7 +95,7 @@ export default class MeetingFieldCreate extends React.Component {
                         ))}
                     </React.Fragment>
                 </MeetingSelect>
-                <p>{this.state.meetingEndTime}</p>
+                {/* <p>{this.state.meetingEndTime}</p> */}
             </React.Fragment>
         )
     }
