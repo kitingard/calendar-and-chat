@@ -11,12 +11,26 @@ import './index.css'
 
 import registerServiceWorker from './registerServiceWorker'
 
+const defaultMembers = {
+  '0': {
+    id: 0,
+    name: 'Маша Сидорова',
+    visited: false,
+  },
+  '1': {
+    id: 1,
+    name: 'Паша Иванов',
+    visited: true,
+  },
+}
+
 const store = createStore<StoreState, any, any, any>(openModal, {
   chatOpen: false,
   meetingDisabled: false,
   meetingOpen: false,
   memberAdd: false,
   memberState: 'create',
+  members: defaultMembers,
   profileOpen: false,
 })
 

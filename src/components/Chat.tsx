@@ -68,9 +68,6 @@ const ProfileInput = styled.textarea`
     border-radius: 3px 3px 6px 3px;
     font-size: 13px;
 `
-const None = styled.div`
-    display: none;
-`
 const MeetingForm = styled.div`
     display: flex;
     flex-wrap: wrap;
@@ -97,8 +94,9 @@ const MeetingInput = styled.input`
 `
 
 function Chat({chatOpen, onChatClose, onProfileClose, onProfileOpen, profileOpen }:Props) {
-        if (chatOpen) {
-            return (
+    return (
+        <React.Fragment>
+            {chatOpen &&
                 <ChatWrapper>
                     {(profileOpen)?
                     <React.Fragment>
@@ -109,7 +107,7 @@ function Chat({chatOpen, onChatClose, onProfileClose, onProfileOpen, profileOpen
                         </ChatTitle>
                         <MeetingForm>
                             <MeetingLabel>Имя</MeetingLabel>
-                            <MeetingInput type='text'  placeholder='Anonym'/>
+                            <MeetingInput type='text' placeholder='Anonym'/>
                             <MeetingLabel>Проект</MeetingLabel>
                             <MeetingInput type='text' placeholder='Project'/>
                             <MeetingLabel>О себе</MeetingLabel>
@@ -118,7 +116,7 @@ function Chat({chatOpen, onChatClose, onProfileClose, onProfileOpen, profileOpen
                     </React.Fragment>
                     :
                     <React.Fragment>
-                      <ChatTitle>
+                    <ChatTitle>
                         <ProfileBtn onClick={onProfileOpen}><ChatIcon src={chaticon} /></ProfileBtn>
                         Чат-Форум{chatOpen}
                         <CloseBtn onClick={onChatClose}><CloseIcon /></CloseBtn>
@@ -127,12 +125,9 @@ function Chat({chatOpen, onChatClose, onProfileClose, onProfileOpen, profileOpen
                     </React.Fragment>
                     } 
                 </ChatWrapper>
-            )
-        } else {
-            return(
-                <None />
-            )
-        }
+            }
+        </React.Fragment>    
+    )
 }
 
 export default Chat;

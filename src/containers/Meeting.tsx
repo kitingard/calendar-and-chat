@@ -1,5 +1,5 @@
 import * as actions from '../actions';
-import Meetings from '../components/Meeting/Meeting';
+import Meeting from '../components/Meeting/Meeting';
 
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
@@ -17,11 +17,9 @@ export function mapStateToProps({ meetingOpen, meetingDisabled, memberAdd, membe
 
 export function mapDispatchToProps(dispatch: Dispatch<actions.openModalAction>) {
     return {
-        onAddMember: () => dispatch(actions.addMember()),
         onMeetingClose: () => dispatch(actions.closeMeeting()),
         onMeetingOpen: () => dispatch(actions.openMeeting()),
-        onStopAddMember: () => dispatch(actions.addMember()),
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Meetings);
+export default connect(mapStateToProps, mapDispatchToProps)(Meeting)

@@ -23,7 +23,6 @@ const MeetingInput = styled.input`
     font-size: 13px;
     text-indent: 5px;
 `
-
 const MeetingText = styled.p`
     width: 128px;
     height: 20px;
@@ -54,10 +53,8 @@ export default class MeetingFieldCreate extends React.Component {
         meetingStartTime: '',
         meetingTheme: '',
     }
-
     /* Изменение данных в поле ввода
     */
-
     public onThemeChange = (evt: any) => this.setState({
         meetingTheme : evt.target.value,
     })
