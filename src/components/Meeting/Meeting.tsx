@@ -1,14 +1,14 @@
 // import * as moment from 'moment'
-import * as React from 'react'
-import styled from 'styled-components'
-import cross from '../../assets/img/cross.svg'
+import * as React from "react";
+import styled from "styled-components";
+import cross from "../../assets/img/cross.svg";
 // import hours from '../../assets/strings/meeting/MeetingText'
-import MembersWrap from '../../containers/MembersWrap'
-import Button from '../../styles/Button'
+import MembersWrap from "../../containers/MembersWrap";
+import Button from "../../styles/Button";
 
-import MeetingWrapper from '../../styles/MeetingWrapper'
-import ModalTitle from '../../styles/ModalTitle'
-import MeetingFieldCreate from './meetingField/MeetingFieldCreate'
+import MeetingWrapper from "../../styles/MeetingWrapper";
+import ModalTitle from "../../styles/ModalTitle";
+import MeetingFieldCreate from "./meetingField/MeetingFieldCreate";
 // import MeetingFieldHold from './meetingField/MeetingFieldHold'
 // import 'moment/locale/ru'
 
@@ -17,100 +17,99 @@ import MeetingFieldCreate from './meetingField/MeetingFieldCreate'
 // border-radius: 2px 2px 0px 0px;
 // `
 const MeetingFormWrapper = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    padding: 14px 24px 24px 16px;
-`
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 14px 24px 24px 16px;
+`;
 const CloseBtn = styled.div`
-    position: absolute;
-    top: 16px;
-    right: 18px;
-    width: 11px;
-    height: 11px;
-`
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  width: 11px;
+  height: 11px;
+`;
 const CrossIcon = styled.img`
-    position: absolute;
-    right: 0px;
-`
+  position: absolute;
+  right: 0px;
+`;
 const CancelBtn = styled(Button)`
-    position: absolute;
-    bottom: 24px;
-    right: 137px;
-    color: #000000;
-`
+  position: absolute;
+  bottom: 24px;
+  right: 137px;
+  color: #000000;
+`;
 const SaveBtn = styled(Button)`
-    position: absolute;
-    bottom: 24px;
-    right: 24px;
-    background: #2F81CD;
-    color: #FFFFFF;
-`
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  background: #2f81cd;
+  color: #ffffff;
+`;
 // const None = styled.div`
 //     display: none;
 // `
 // const today:string = moment().format('dd DD.MM.YYYY')
-export interface Props {
-    meetingOpen: boolean
-    memberState: string
-    onMeetingClose?: () => void
+export interface MeetingProps {
+  meetingOpen: boolean;
+  memberState: string;
+  onMeetingClose?: () => void;
+  onAddMember?: () => void;
 }
 
-export const MeetingName = (props: any) => <React.Fragment>{props.text}</React.Fragment>
+export interface MeetingState {
+  name: string;
+  stateMember: string;
+}
 
-function Meeting({ meetingOpen, onMeetingClose, memberState }: Props) {
-    let name: string
-    (memberState === 'create') ? name = 'Встреча' : name = 'А вот и не встреча'
-    // switch (memberState) {
-    //     case 'create': 
-    //         name = 'Встреча'
-    //         break
-    //     case 'active': 
-    //         name = 'Активная Встреча'
-    //         break
-    //     case 'disabled': 
-    //         name = 'Неактивная Встреча'
-    //         break
+export const MeetingName = (props: any) => (
+  <React.Fragment>{props.text}</React.Fragment>
+);
+
+class Meeting extends React.Component<MeetingProps> {
+  public state = {
+    name: ""
+  };
+
+  public stateOfMembers(stateMember: string) {
+    // switch (stateMember) {
+    //   case "create":
+    // return (this.state.name = "Встреча");
+    // case "active":
+    //   return (this.state.name = "Активная Встреча");
+    // case "disabled":
+    //   return (this.state.name = "Неактивная Встреча");
+    //   default:
+    //     break;
     // }
-    // if (meetingOpen) {
-    //     return (
-    //     <MeetingWrapper >
-    //         <ModalTitle>
-    //             <MeetingName text={name} />
-    //             <CloseBtn onClick={onMeetingClose}><CrossIcon src={cross} /></CloseBtn>
-    //         </ModalTitle>
-    //         <MeetingFormWrapper>
-    //             <MeetingFieldCreate />
-    //             {/* <MeetingFieldHold />  */}
-    //             <MembersCreate />
-    //             <CancelBtn>Отмена</CancelBtn>
-    //             <SaveBtn>Сохранить</SaveBtn>
-    //         </MeetingFormWrapper>
-    //     </MeetingWrapper>
-    // )
-    // }
-    //     else {
-    //         return(
-    //             <None />
-    //         )
-    //     }
+    stateMember === "create"
+      ? (this.state.name = "Встреча")
+      : (this.state.name = "А вот и не встреча");
+    return this.state.name;
+  }
+  public render() {
     return (
-    <React.Fragment>
-        {meetingOpen && <MeetingWrapper >
+      <React.Fragment>
+        {this.props.meetingOpen && (
+          <MeetingWrapper>
             <ModalTitle>
-                <MeetingName text={name} />
-                <CloseBtn onClick={onMeetingClose}><CrossIcon src={cross} /></CloseBtn>
+              <MeetingName text={this.stateOfMembers(this.props.memberState)} />
+              <CloseBtn onClick={this.props.onMeetingClose}>
+                <CrossIcon src={cross} />
+              </CloseBtn>
             </ModalTitle>
             <MeetingFormWrapper>
-                <MeetingFieldCreate />
-                {/* <MeetingFieldHold />  */}
-                <MembersWrap />
-                <CancelBtn>Отмена</CancelBtn>
-                <SaveBtn>Сохранить</SaveBtn>
+              <MeetingFieldCreate />
+              {/* <MeetingFieldHold />  */}
+              <MembersWrap />
+              <CancelBtn>Отмена</CancelBtn>
+              <SaveBtn onClick={this.props.onAddMember}>Сохранить</SaveBtn>
             </MeetingFormWrapper>
-        </MeetingWrapper>}
-    </React.Fragment>
-    )
+          </MeetingWrapper>
+        )}
+      </React.Fragment>
+    );
+  }
 }
 
-export default Meeting
+export default Meeting;

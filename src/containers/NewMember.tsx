@@ -1,9 +1,11 @@
 import * as actions from "../actions";
-import MembersWrap from "../components/Meeting/MembersWrap";
 
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { StoreState } from "../types/index";
+import NewMember from "src/components/Meeting/NewMember";
+// import membersArray from "src/components/Meeting/NewMember";
+// import { Member } from "../types";
 
 export function mapStateToProps({ members }: StoreState) {
   return {
@@ -22,4 +24,4 @@ export function mapDispatchToProps(
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MembersWrap);
+)(NewMember);
