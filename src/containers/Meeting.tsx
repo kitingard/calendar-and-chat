@@ -8,24 +8,19 @@ import { StoreState } from "../types/index";
 export function mapStateToProps({
   meetingOpen,
   meetingDisabled,
-  memberAdd,
   memberState
 }: StoreState) {
   return {
     meetingDisabled,
     meetingOpen,
-    memberAdd,
     memberState
   };
 }
 
-export function mapDispatchToProps(
-  dispatch: Dispatch<actions.openModalAction>
-) {
+export function mapDispatchToProps(dispatch: Dispatch<actions.reduxActions>) {
   return {
     onMeetingClose: () => dispatch(actions.closeMeeting()),
     onMeetingOpen: () => dispatch(actions.openMeeting())
-    // onAddMember: () => dispatch(actions.addMember())
   };
 }
 

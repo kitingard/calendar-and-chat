@@ -22,21 +22,21 @@ const MembersInput = styled.input`
   border-radius: 2px;
 `;
 
-function MembersChecked(members: object) {
+const MembersChecked = (props: any) => {
   return (
     <React.Fragment>
       <MembersList>
-        {Object.keys(members)
+        {Object.keys(props.members)
           .sort((a: any, b: any) => a - b)
           .map(memberId => {
-            const member = members[memberId];
+            const member = props.members[memberId];
             return (
               <MembersLi key={member.id}>
                 <MembersInput
                   id="membersCheckbox"
                   type="checkbox"
                   checked={member.visited}
-                  onChange={members[memberId]}
+                  onChange={() => props.onClick(member.id)}
                 />
                 <MembersLabel htmlFor="membersCheckbox">
                   {member.name}
@@ -47,6 +47,6 @@ function MembersChecked(members: object) {
       </MembersList>
     </React.Fragment>
   );
-}
+};
 
 export default MembersChecked;

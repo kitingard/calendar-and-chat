@@ -5,8 +5,6 @@ export interface StoreState {
   meetingDisabled: boolean;
   memberState: string;
   memberAdd: boolean;
-  chatOpen: boolean;
-  profileOpen: boolean;
   members: Member[];
 }
 

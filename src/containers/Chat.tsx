@@ -1,26 +1,16 @@
 import * as actions from "../actions";
-import Chat from "../components/Chat";
+import Chat from "../components/Chat/Chat";
 
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { StoreState } from "../types/index";
 
-export function mapStateToProps({ chatOpen, profileOpen }: StoreState) {
-  return {
-    chatOpen,
-    profileOpen
-  };
+export function mapStateToProps({  }: StoreState) {
+  return {};
 }
 
-export function mapDispatchToProps(
-  dispatch: Dispatch<actions.openModalAction>
-) {
-  return {
-    onChatClose: () => dispatch(actions.closeChat()),
-    onChatOpen: () => dispatch(actions.openChat()),
-    onProfileClose: () => dispatch(actions.closeProfile()),
-    onProfileOpen: () => dispatch(actions.openProfile())
-  };
+export function mapDispatchToProps(dispatch: Dispatch<actions.reduxActions>) {
+  return {};
 }
 
 export default connect(

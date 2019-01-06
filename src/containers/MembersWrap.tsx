@@ -4,6 +4,7 @@ import MembersWrap from "../components/Meeting/MembersWrap";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { StoreState } from "../types/index";
+import { array } from "prop-types";
 
 export function mapStateToProps({ members }: StoreState) {
   return {
@@ -11,11 +12,9 @@ export function mapStateToProps({ members }: StoreState) {
   };
 }
 
-export function mapDispatchToProps(
-  dispatch: Dispatch<actions.openModalAction>
-) {
+export function mapDispatchToProps(dispatch: Dispatch<actions.reduxActions>) {
   return {
-    onAddMember: () => dispatch(actions.addMember())
+    onAddMember: () => dispatch(actions.addMember(array))
   };
 }
 

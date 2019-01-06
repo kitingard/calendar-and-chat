@@ -1,6 +1,5 @@
 import * as React from "react";
 import styled from "styled-components";
-import icon from "../../assets/img/icon.svg";
 import { Meeting } from "../../types";
 import CalendarDaysRender from "./CalendarDaysRender";
 
@@ -24,19 +23,6 @@ const Week = styled.div`
 //     border-right: 1px solid #DEDEDE;
 // `
 
-const ChatButton = styled.button`
-  position: absolute;
-  bottom: 13px;
-  right: 21px;
-  width: 58px;
-  height: 58px;
-  border: none;
-  background-color: transparent;
-`;
-const ChatIcon = styled.img`
-  margin: -2px 0px 0px -6px;
-`;
-
 export interface CalendarProps {
   onMeetingOpen?: () => void;
   onChatOpen?: () => void;
@@ -47,9 +33,6 @@ function Calendar({ onMeetingOpen, onChatOpen, meetings }: CalendarProps) {
   return (
     <Week>
       <CalendarDaysRender onMeetingOpen={onMeetingOpen} meetings={meetings} />
-      <ChatButton onClick={onChatOpen}>
-        <ChatIcon src={icon} />
-      </ChatButton>
     </Week>
   );
 }

@@ -65,14 +65,12 @@ const meetings: Meeting[] = [
 const store = createStore<StoreState, any, any, any>(
   openModal,
   {
-    chatOpen: false,
     meetingDisabled: false,
     meetingOpen: false,
     memberAdd: false,
     memberState: "create",
     members: Object.keys(defaultMembers).map(key => defaultMembers[key]),
-    meetings,
-    profileOpen: false
+    meetings
   },
   // @ts-ignore
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()

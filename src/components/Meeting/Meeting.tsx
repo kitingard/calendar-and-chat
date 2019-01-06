@@ -5,6 +5,7 @@ import cross from "../../assets/img/cross.svg";
 // import hours from '../../assets/strings/meeting/MeetingText'
 import MembersWrap from "../../containers/MembersWrap";
 import Button from "../../styles/Button";
+import Form from "../../styles/Form";
 
 import MeetingWrapper from "../../styles/MeetingWrapper";
 import ModalTitle from "../../styles/ModalTitle";
@@ -16,11 +17,9 @@ import MeetingFieldCreate from "./meetingField/MeetingFieldCreate";
 // background: #D0D0D0;
 // border-radius: 2px 2px 0px 0px;
 // `
-const MeetingFormWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  padding: 14px 24px 24px 16px;
+const CrossIcon = styled.img`
+  position: absolute;
+  right: 0px;
 `;
 const CloseBtn = styled.div`
   position: absolute;
@@ -28,10 +27,6 @@ const CloseBtn = styled.div`
   right: 18px;
   width: 11px;
   height: 11px;
-`;
-const CrossIcon = styled.img`
-  position: absolute;
-  right: 0px;
 `;
 const CancelBtn = styled(Button)`
   position: absolute;
@@ -72,19 +67,13 @@ class Meeting extends React.Component<MeetingProps> {
   };
 
   public stateOfMembers(stateMember: string) {
-    // switch (stateMember) {
-    //   case "create":
-    // return (this.state.name = "Встреча");
-    // case "active":
-    //   return (this.state.name = "Активная Встреча");
-    // case "disabled":
-    //   return (this.state.name = "Неактивная Встреча");
-    //   default:
-    //     break;
-    // }
-    stateMember === "create"
-      ? (this.state.name = "Встреча")
-      : (this.state.name = "А вот и не встреча");
+    if (stateMember === "create") {
+      this.state.name = "Встреча";
+    } else if (stateMember === "active") {
+      this.state.name = "Активная Встреча";
+    } else if (stateMember === "disabled") {
+      this.state.name = "Неактивная Встреча";
+    }
     return this.state.name;
   }
   public render() {
@@ -98,13 +87,13 @@ class Meeting extends React.Component<MeetingProps> {
                 <CrossIcon src={cross} />
               </CloseBtn>
             </ModalTitle>
-            <MeetingFormWrapper>
+            <Form>
               <MeetingFieldCreate />
               {/* <MeetingFieldHold />  */}
               <MembersWrap />
               <CancelBtn>Отмена</CancelBtn>
               <SaveBtn onClick={this.props.onAddMember}>Сохранить</SaveBtn>
-            </MeetingFormWrapper>
+            </Form>
           </MeetingWrapper>
         )}
       </React.Fragment>

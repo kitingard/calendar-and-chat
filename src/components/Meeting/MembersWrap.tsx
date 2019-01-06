@@ -1,9 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
-import NewMember from "../../containers/NewMember";
-import { Member } from "../../types";
-// import MembersCreate from "./MembersCreate";
-// import MembersChecked from './MembersChecked'
+import MembersCreate from "../../containers/MembersCreate";
+import MembersChecked from "./MembersChecked";
 
 const MeetingLabel = styled.label`
   width: 128px;
@@ -47,21 +45,42 @@ const MeetingLabel = styled.label`
 // `
 
 export interface MembersWrapProps {
-  members: Member[];
+  members: object;
   onAddMember?: () => void;
 }
 
 class MembersWrap extends React.Component<MembersWrapProps> {
+  public state = {
+    checklist: false
+  };
+  public onMemberVisitedChange = (memberId: number) => {
+    const member = this.props.members[memberId];
+    const oldMembers = Object.assign({}, this.props.members);
+
+    delete oldMembers[memberId];
+
+    const newMember = {
+      ...member,
+      visited: !member.visited
+    };
+
+    this.setState(state => ({
+      members: { ...oldMembers, [memberId]: newMember }
+    }));
+  };
+
   public render() {
     return (
       <React.Fragment>
         <MeetingLabel>Участники встречи</MeetingLabel>
-        <NewMember />
-        {/* {MembersCreate(this.props.members)}
-        <MeetingButton onClick={this.props.onAddMember}>
-          Добавить участника
-        </MeetingButton> */}
-        {/* {MembersChecked(members)} */}
+        {this.state.checklist ? (
+          <MembersChecked
+            members={this.props.members}
+            onClick={this.onMemberVisitedChange}
+          />
+        ) : (
+          <MembersCreate />
+        )}
       </React.Fragment>
     );
   }
