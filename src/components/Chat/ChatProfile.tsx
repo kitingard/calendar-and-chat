@@ -7,6 +7,9 @@ import CloseIcon from "../../styles/CloseIcon";
 import Form from "../../styles/Form";
 import ProfileBtn from "../../styles/ProfileBtn";
 
+const ProfileForm = styled(Form)`
+  padding: 14px 0px 24px;
+`;
 const ProfileIcon = styled.img``;
 const ProfileTextarea = styled.textarea`
   width: 158px;
@@ -18,8 +21,7 @@ const ProfileTextarea = styled.textarea`
 const ProfileLabel = styled.label`
   width: 128px;
   height: 20px;
-  margin-right: 6px;
-  margin-top: 5px;
+  margin: 5px 6px 0px 18px;
   font-size: 13px;
   text-indent: 5px;
 `;
@@ -45,14 +47,14 @@ function ChatProfile(props: any) {
           <CloseIcon />
         </CloseBtn>
       </ChatTitle>
-      <Form>
+      <ProfileForm>
         <ProfileLabel>Имя</ProfileLabel>
         <ProfileInput type="text" placeholder="Anonym" />
         <ProfileLabel>Проект</ProfileLabel>
         <ProfileInput type="text" placeholder="Project" />
         <ProfileLabel>О себе</ProfileLabel>
         <ProfileTextarea placeholder="Self description" />
-      </Form>
+      </ProfileForm>
     </React.Fragment>
   );
 }

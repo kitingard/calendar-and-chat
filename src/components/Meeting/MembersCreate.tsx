@@ -35,12 +35,17 @@ const None = styled.div`
   display: none;
 `;
 
-export interface NewMemberProps {
+export interface MembersCreateProps {
   members: Member[];
-  onAddMember?: (array: any) => void;
+  onAddMember: (object: any) => void;
 }
 
-class NewMember extends React.Component<NewMemberProps> {
+export interface MembersCreateState {}
+
+class NewMember extends React.Component<
+  MembersCreateProps,
+  MembersCreateState
+> {
   public state = {
     memberName: "",
     members: {}
@@ -81,6 +86,7 @@ class NewMember extends React.Component<NewMemberProps> {
     });
 
   public onAdd = () => {
+    this.props.onAddMember(this.state.members);
     this.addNewMember(this.state.memberName);
     this.setState({ memberName: "" });
     alert(JSON.stringify(this.state.members));

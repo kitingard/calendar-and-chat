@@ -5,12 +5,14 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { StoreState } from "../types/index";
 
-export function mapStateToProps({  }: StoreState) {
-  return {};
+export function mapStateToProps({ messages }: StoreState) {
+  return { messages };
 }
 
 export function mapDispatchToProps(dispatch: Dispatch<actions.reduxActions>) {
-  return {};
+  return {
+    onAddMessage: (text: string) => dispatch(actions.addMessage(text))
+  };
 }
 
 export default connect(

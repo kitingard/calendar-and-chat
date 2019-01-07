@@ -1,10 +1,11 @@
 export interface StoreState {
-  meetings: Meeting[];
+  chatUsers: User[];
+  currentDate: Date;
   currentMeeting?: Meeting;
+  currentUser: User;
+  messages: string[];
+  meetings: Meeting[];
   meetingOpen: boolean;
-  meetingDisabled: boolean;
-  memberState: string;
-  memberAdd: boolean;
   members: Member[];
 }
 
@@ -17,4 +18,11 @@ export interface Meeting {
   start: Date;
   end: Date;
   title: string;
+}
+
+export interface User {
+  id: number;
+  name: string;
+  project: string;
+  selfdescription: string;
 }

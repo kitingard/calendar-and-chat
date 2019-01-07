@@ -1,7 +1,8 @@
 import * as React from "react";
 import styled from "styled-components";
-import MembersCreate from "../../containers/MembersCreate";
+import MembersCreate from "./MembersCreate";
 import MembersChecked from "./MembersChecked";
+import { Member } from "../../types/index";
 
 const MeetingLabel = styled.label`
   width: 128px;
@@ -45,8 +46,8 @@ const MeetingLabel = styled.label`
 // `
 
 export interface MembersWrapProps {
-  members: object;
-  onAddMember?: () => void;
+  members: Member[];
+  onAddMember: (object: any) => void;
 }
 
 class MembersWrap extends React.Component<MembersWrapProps> {
@@ -79,7 +80,10 @@ class MembersWrap extends React.Component<MembersWrapProps> {
             onClick={this.onMemberVisitedChange}
           />
         ) : (
-          <MembersCreate />
+          <MembersCreate
+            members={this.props.members}
+            onAddMember={this.props.onAddMember}
+          />
         )}
       </React.Fragment>
     );

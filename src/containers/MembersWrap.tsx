@@ -1,10 +1,10 @@
 import * as actions from "../actions";
 import MembersWrap from "../components/Meeting/MembersWrap";
+import { Member } from "../types";
 
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { StoreState } from "../types/index";
-import { array } from "prop-types";
 
 export function mapStateToProps({ members }: StoreState) {
   return {
@@ -14,7 +14,7 @@ export function mapStateToProps({ members }: StoreState) {
 
 export function mapDispatchToProps(dispatch: Dispatch<actions.reduxActions>) {
   return {
-    onAddMember: () => dispatch(actions.addMember(array))
+    onAddMember: (object: Member) => dispatch(actions.addMember(object))
   };
 }
 

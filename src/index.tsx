@@ -17,16 +17,6 @@ const defaultMembers = {
     visited: false
   },
   "1": {
-    id: 1,
-    name: "Некит",
-    visited: true
-  },
-  "2": {
-    id: 2,
-    name: "Иоанна",
-    visited: true
-  },
-  "3": {
     id: 3,
     name: "Женя",
     visited: true
@@ -65,12 +55,15 @@ const meetings: Meeting[] = [
 const store = createStore<StoreState, any, any, any>(
   openModal,
   {
-    meetingDisabled: false,
+    currentDate: moment()
+      .subtract(1, "day")
+      .hours(9)
+      .minutes(0)
+      .toDate(),
     meetingOpen: false,
-    memberAdd: false,
-    memberState: "create",
     members: Object.keys(defaultMembers).map(key => defaultMembers[key]),
-    meetings
+    meetings,
+    messages: ["Привет, как твои дела?"]
   },
   // @ts-ignore
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()

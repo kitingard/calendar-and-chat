@@ -5,15 +5,10 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { StoreState } from "../types/index";
 
-export function mapStateToProps({
-  meetingOpen,
-  meetingDisabled,
-  memberState
-}: StoreState) {
+export function mapStateToProps({ meetingOpen, currentDate }: StoreState) {
   return {
-    meetingDisabled,
     meetingOpen,
-    memberState
+    currentDate
   };
 }
 

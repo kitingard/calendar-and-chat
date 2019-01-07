@@ -2,7 +2,6 @@
 import * as React from "react";
 import styled from "styled-components";
 import cross from "../../assets/img/cross.svg";
-// import hours from '../../assets/strings/meeting/MeetingText'
 import MembersWrap from "../../containers/MembersWrap";
 import Button from "../../styles/Button";
 import Form from "../../styles/Form";
@@ -10,6 +9,7 @@ import Form from "../../styles/Form";
 import MeetingWrapper from "../../styles/MeetingWrapper";
 import ModalTitle from "../../styles/ModalTitle";
 import MeetingFieldCreate from "./meetingField/MeetingFieldCreate";
+
 // import MeetingFieldHold from './meetingField/MeetingFieldHold'
 // import 'moment/locale/ru'
 
@@ -41,20 +41,18 @@ const SaveBtn = styled(Button)`
   background: #2f81cd;
   color: #ffffff;
 `;
-// const None = styled.div`
-//     display: none;
-// `
+
 // const today:string = moment().format('dd DD.MM.YYYY')
 export interface MeetingProps {
+  currentDate: Date;
   meetingOpen: boolean;
-  memberState: string;
   onMeetingClose?: () => void;
   onAddMember?: () => void;
 }
 
 export interface MeetingState {
   name: string;
-  stateMember: string;
+  memberState: string;
 }
 
 export const MeetingName = (props: any) => (
@@ -63,7 +61,8 @@ export const MeetingName = (props: any) => (
 
 class Meeting extends React.Component<MeetingProps> {
   public state = {
-    name: ""
+    name: "",
+    memberState: "create"
   };
 
   public stateOfMembers(stateMember: string) {
@@ -82,13 +81,13 @@ class Meeting extends React.Component<MeetingProps> {
         {this.props.meetingOpen && (
           <MeetingWrapper>
             <ModalTitle>
-              <MeetingName text={this.stateOfMembers(this.props.memberState)} />
+              <MeetingName text={this.stateOfMembers(this.state.memberState)} />
               <CloseBtn onClick={this.props.onMeetingClose}>
                 <CrossIcon src={cross} />
               </CloseBtn>
             </ModalTitle>
             <Form>
-              <MeetingFieldCreate />
+              <MeetingFieldCreate currentDate={this.props.currentDate} />
               {/* <MeetingFieldHold />  */}
               <MembersWrap />
               <CancelBtn>Отмена</CancelBtn>

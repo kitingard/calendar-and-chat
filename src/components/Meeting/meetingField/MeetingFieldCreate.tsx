@@ -1,8 +1,8 @@
 import * as moment from "moment";
 import * as React from "react";
 import styled from "styled-components";
-import hours from "../../../assets/strings/meeting/MeetingText";
 import MeetingField from "../../../styles/MeetingField";
+import { SELECT_FORMAT } from "../../../constants";
 
 import "moment/locale/ru";
 
@@ -44,28 +44,115 @@ const MeetingSelect = styled.select`
 const MeetingSelectOption = styled.option``;
 const today: string = moment().format("dd DD.MM.YYYY");
 
-class MeetingFieldCreate extends React.Component {
-  public state = {
-    meetingDay: "",
-    meetingEndTime: "",
-    meetingStartTime: "",
-    meetingTitle: ""
-  };
+type MeetingFieldCreateProps = {
+  currentDate: Date;
+};
+
+type MeetingFieldCreateState = {
+  meetingDay: string;
+  meetingEndTime: Date;
+  meetingStartTime: Date;
+  meetingTitle: string;
+};
+
+class MeetingFieldCreate extends React.Component<
+  MeetingFieldCreateProps,
+  MeetingFieldCreateState
+> {
+  constructor(props: MeetingFieldCreateProps) {
+    super(props);
+
+    this.state = {
+      meetingDay: "",
+      meetingEndTime: moment(this.props.currentDate)
+        .add(1, "h")
+        .toDate(),
+      meetingStartTime: moment(this.props.currentDate).toDate(),
+      meetingTitle: ""
+    };
+  }
 
   public onTitleChange = (evt: any) =>
     this.setState({
       meetingTitle: evt.target.value
     });
 
-  public onStartTimeChange = (evt: any) =>
-    this.setState({
-      meetingStartTime: evt.target.value
-    });
+  private onStartTimeChange = (evt: any) => {
+    const newMeetingStartTime = this.convertValueToMoment(evt.target.value);
+    const meetingEndTime = moment(this.state.meetingEndTime);
 
-  public onEndTimeChange = (evt: any) =>
+    if (meetingEndTime.isSameOrBefore(newMeetingStartTime)) {
+      this.setState({
+        meetingStartTime: newMeetingStartTime.toDate(),
+        meetingEndTime: newMeetingStartTime
+          .clone()
+          .add(30, "m")
+          .toDate()
+      });
+    } else {
+      this.setState({
+        meetingStartTime: newMeetingStartTime.toDate()
+      });
+    }
+  };
+
+  private onEndTimeChange = (evt: any) => {
+    const meetingEndTime = this.convertValueToMoment(evt.target.value);
+
     this.setState({
-      meetingEndTime: evt.target.value
+      meetingEndTime: meetingEndTime.toDate()
     });
+  };
+
+  private convertValueToMoment(value: string): moment.Moment {
+    const [hours, minutes] = value.split(":");
+    return moment(this.props.currentDate)
+      .hours(Number(hours))
+      .minutes(Number(minutes));
+  }
+
+  private calculateBetween(
+    startDate: Date = moment(this.props.currentDate)
+      .hours(9)
+      .minutes(0)
+      .toDate()
+  ): string[] {
+    const start = moment(startDate);
+    const end = moment(startDate)
+      .hours(18)
+      .minutes(30);
+
+    const result = [];
+
+    do {
+      result.push(start.format(SELECT_FORMAT));
+      start.add(30, "m");
+    } while (end.isSameOrAfter(start));
+
+    return result;
+  }
+
+  private calculateStartHours(): string[] {
+    return this.calculateBetween();
+  }
+
+  private calculateEndHours(): string[] {
+    const offset = moment(this.state.meetingStartTime)
+      .add(30, "m")
+      .toDate();
+
+    return this.calculateBetween(offset);
+  }
+
+  // public onStartTimeChange = (evt: any) =>
+  //   this.setState({
+  //     meetingStartTime: evt.target.value
+  //   });
+
+  // public onEndTimeChange = (evt: any) =>
+  //   this.setState({
+  //     meetingEndTime: evt.target.value
+  //   });
 
   public render() {
     return (
@@ -82,28 +169,24 @@ class MeetingFieldCreate extends React.Component {
         <MeetingLabel htmlFor="meetingStartTime">Начало встречи</MeetingLabel>
         <MeetingSelect
           id="meetingStartTime"
-          value={this.state.meetingStartTime}
+          value={moment(this.state.meetingStartTime).format(SELECT_FORMAT)}
           onChange={this.onStartTimeChange}
         >
           <React.Fragment>
-            {hours.map(entry => (
-              <MeetingSelectOption key={entry.key}>
-                {entry.hour}
-              </MeetingSelectOption>
+            {this.calculateStartHours().map((hour, i) => (
+              <MeetingSelectOption key={i}>{hour}</MeetingSelectOption>
             ))}
           </React.Fragment>
         </MeetingSelect>
         <MeetingLabel htmlFor="meetingEndTime">Окончание встречи</MeetingLabel>
         <MeetingSelect
           id="meetingEndTime"
-          value={this.state.meetingEndTime}
+          value={moment(this.state.meetingEndTime).format(SELECT_FORMAT)}
           onChange={this.onEndTimeChange}
         >
           <React.Fragment>
-            {hours.map(entry => (
-              <MeetingSelectOption key={entry.key}>
-                {entry.hour}
-              </MeetingSelectOption>
+            {this.calculateEndHours().map((hour, i) => (
+              <MeetingSelectOption key={i}>{hour}</MeetingSelectOption>
             ))}
           </React.Fragment>
         </MeetingSelect>

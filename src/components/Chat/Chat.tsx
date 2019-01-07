@@ -29,38 +29,82 @@ const ChatInput = styled.textarea`
 const ChatBtn = styled.button`
   position: absolute;
   bottom: 13px;
-  right: 21px;
+  right: 25px;
   width: 58px;
   height: 58px;
   border: none;
   background-color: transparent;
 `;
 const ChatIcon = styled.img`
+  margin: -2px 0px 0px -6px;
+`;
+const ChatMinIcon = styled.img`
   margin: -2px 0px 0px -2px;
 `;
+const ChatMessageWrapper = styled.div`
+  max-height: 318px;
+  overflow-y: scroll;
+  padding: 8px 14px;
+`;
+const MessageWrapper = styled.p`
+  max-width: 130px;
+  padding: 10px 9px 15px 9px;
+  margin-bottom: 10px;
+  background: #2f81cd;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 13px;
+  color: #ffffff;
+`;
 
-export interface ChatProps {}
+export interface ChatProps {
+  messages: string[];
+  onAddMessage: (text: string) => void;
+}
 
 export interface ChatState {
   chatOpen: boolean;
   profileOpen: boolean;
+  message: string;
+  messages: string[];
 }
 
 class Chat extends React.Component<ChatProps, ChatState> {
   public state = {
     chatOpen: false,
-    profileOpen: false
+    profileOpen: false,
+    message: "",
+    messages: this.props.messages
   };
 
   onChatOpenChange = () =>
     this.setState(state => ({
-      chatOpen: !state.chatOpen
+      chatOpen: !state.chatOpen,
+      profileOpen: false
     }));
 
   onProfileOpenChange = () =>
     this.setState(state => ({
       profileOpen: !state.profileOpen
     }));
+
+  onMessageChange = (evt: any) =>
+    this.setState({
+      message: evt.target.value
+    });
+
+  public addNewMessage = (text: string) =>
+    this.setState(state => ({
+      messages: [...this.state.messages, text]
+    }));
+
+  keyPress = (evt: any) => {
+    if (evt.keyCode == 13) {
+      this.props.onAddMessage(this.state.message);
+      this.addNewMessage(this.state.message);
+      evt.target.value = "";
+    }
+  };
 
   public render() {
     return (
@@ -79,14 +123,27 @@ class Chat extends React.Component<ChatProps, ChatState> {
               <React.Fragment>
                 <ChatTitle>
                   <ProfileBtn onClick={this.onProfileOpenChange}>
-                    <ChatIcon src={chaticon} />
+                    <ChatMinIcon src={chaticon} />
                   </ProfileBtn>
                   Чат-Форум
                   <CloseBtn onClick={this.onChatOpenChange}>
                     <CloseIcon />
                   </CloseBtn>
                 </ChatTitle>
-                <ChatInput />
+                <ChatMessageWrapper>
+                  {this.state.messages.map((message: string, i: number) => (
+                    <MessageWrapper key={i}>
+                      {message}
+                      {/* {i} */}
+                    </MessageWrapper>
+                  ))}
+                  {/* <div>{JSON.stringify(this.state.messages)}</div> */}
+                </ChatMessageWrapper>
+
+                <ChatInput
+                  onKeyDown={this.keyPress}
+                  onChange={this.onMessageChange}
+                />
               </React.Fragment>
             )}
           </ChatWrapper>
