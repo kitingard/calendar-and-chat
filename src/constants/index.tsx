@@ -7,8 +7,8 @@ export type CLOSE_MEETING = typeof CLOSE_MEETING;
 export const CREATE_MEETING = "CREATE_MEETING";
 export type CREATE_MEETING = typeof CREATE_MEETING;
 
-export const ADD_MEMBER = "ADD_MEMBER";
-export type ADD_MEMBER = typeof ADD_MEMBER;
+export const NEW_MEETING = "NEW_MEETING";
+export type NEW_MEETING = typeof NEW_MEETING;
 
 export const ADD_USER = "ADD_USER";
 export type ADD_USER = typeof ADD_USER;

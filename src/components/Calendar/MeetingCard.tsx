@@ -1,7 +1,8 @@
 import styled from "styled-components";
+import * as moment from "moment";
 import * as React from "react";
 import CalendarFieldWrap from "../../styles/CalendarFieldWrap";
-import { Meeting } from "../../types";
+import { IMeeting } from "../../types";
 
 const Card = styled.div`
   position: relative;
@@ -13,20 +14,22 @@ const Card = styled.div`
 `;
 
 type MeetingCardProps = {
-  onDoubleClick?: () => void;
-  meetings: Meeting[];
+  onMeetingClick: (meetingId: number) => void;
+  onCalendarClick: (day: Date) => void;
+  meetings: IMeeting[];
+  currentDate: Date;
 };
 
-const MeetingCard = ({ onDoubleClick, meetings }: MeetingCardProps) => (
-  <CalendarFieldWrap onDoubleClick={onDoubleClick}>
+const MeetingCard = ({
+  onCalendarClick,
+  meetings,
+  currentDate,
+  onMeetingClick
+}: MeetingCardProps) => (
+  <CalendarFieldWrap onDoubleClick={() => onCalendarClick(currentDate)}>
     {meetings.map((meeting, i: number) => (
-      <Card
-        key={i}
-        onClick={() =>
-          alert(meeting.members.map(({ name }) => name).join(", "))
-        }
-      >
-        {meeting.start.toTimeString().slice(0, 5)} >> {meeting.title}
+      <Card key={i} onClick={() => onMeetingClick(meeting.id)}>
+        {moment(meeting.start).format("HH:mm")} >> {meeting.title}
       </Card>
     ))}
   </CalendarFieldWrap>

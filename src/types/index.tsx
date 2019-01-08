@@ -1,26 +1,34 @@
 export interface StoreState {
-  chatUsers: User[];
-  currentDate: Date;
-  currentMeeting?: Meeting;
-  currentUser: User;
+  chatUsers: IUser[];
+  currentMeeting: IMeeting | INewMeeting | null;
+  currentUser: IUser;
   messages: string[];
-  meetings: Meeting[];
-  meetingOpen: boolean;
-  members: Member[];
+  meetings: IMeeting[];
+  members: IMember[];
 }
 
-export interface Member {
-  [key: string]: { name: string; id: number; visited: boolean };
+export interface IMember {
+  id: number;
+  name: string;
+  visited: boolean;
 }
 
-export interface Meeting {
-  members: Member[];
+export interface INewMeeting {
+  members: IMember[];
   start: Date;
   end: Date;
   title: string;
 }
 
-export interface User {
+export interface IMeeting {
+  id: number;
+  members: IMember[];
+  start: Date;
+  end: Date;
+  title: string;
+}
+
+export interface IUser {
   id: number;
   name: string;
   project: string;

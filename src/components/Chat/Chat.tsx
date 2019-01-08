@@ -34,6 +34,9 @@ const ChatBtn = styled.button`
   height: 58px;
   border: none;
   background-color: transparent;
+  :focus {
+    outline: none;
+  }
 `;
 const ChatIcon = styled.img`
   margin: -2px 0px 0px -6px;
@@ -70,7 +73,7 @@ export interface ChatState {
 }
 
 class Chat extends React.Component<ChatProps, ChatState> {
-  public state = {
+  state = {
     chatOpen: false,
     profileOpen: false,
     message: "",
@@ -93,7 +96,7 @@ class Chat extends React.Component<ChatProps, ChatState> {
       message: evt.target.value
     });
 
-  public addNewMessage = (text: string) =>
+  addNewMessage = (text: string) =>
     this.setState(state => ({
       messages: [...this.state.messages, text]
     }));
@@ -106,7 +109,7 @@ class Chat extends React.Component<ChatProps, ChatState> {
     }
   };
 
-  public render() {
+  render() {
     return (
       <React.Fragment>
         <ChatBtn onClick={this.onChatOpenChange}>
@@ -132,12 +135,8 @@ class Chat extends React.Component<ChatProps, ChatState> {
                 </ChatTitle>
                 <ChatMessageWrapper>
                   {this.state.messages.map((message: string, i: number) => (
-                    <MessageWrapper key={i}>
-                      {message}
-                      {/* {i} */}
-                    </MessageWrapper>
+                    <MessageWrapper key={i}>{message}</MessageWrapper>
                   ))}
-                  {/* <div>{JSON.stringify(this.state.messages)}</div> */}
                 </ChatMessageWrapper>
 
                 <ChatInput

@@ -5,16 +5,17 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { StoreState } from "../types/index";
 
-export function mapStateToProps({ meetingOpen, meetings }: StoreState) {
+export function mapStateToProps({ meetings }: StoreState) {
   return {
-    meetingOpen,
     meetings
   };
 }
 
 export function mapDispatchToProps(dispatch: Dispatch<actions.reduxActions>) {
   return {
-    onMeetingOpen: () => dispatch(actions.openMeeting())
+    onMeetingOpen: (day: Date) => dispatch(actions.newMeeting(day)),
+    onMeetingClick: (meetingIg: number) =>
+      dispatch(actions.openMeeting(meetingIg))
   };
 }
 

@@ -1,8 +1,8 @@
 import * as React from "react";
 import styled from "styled-components";
 import CalendarDaysRender from "./CalendarDaysRender";
-import Meetings from "../../containers/Meetings";
-import { Meeting } from "../../types";
+import Meeting from "../../containers/Meeting";
+import { IMeeting } from "../../types";
 
 const Week = styled.div`
   position: relative;
@@ -17,15 +17,20 @@ const Week = styled.div`
 `;
 
 export interface CalendarProps {
-  onMeetingOpen?: () => void;
-  meetings: Meeting[];
+  onMeetingOpen: (day: Date) => void;
+  onMeetingClick: (idNumber: number) => void;
+  meetings: IMeeting[];
 }
 
-function Calendar({ onMeetingOpen, meetings }: CalendarProps) {
+function Calendar({ onMeetingOpen, meetings, onMeetingClick }: CalendarProps) {
   return (
     <Week>
-      <CalendarDaysRender onMeetingOpen={onMeetingOpen} meetings={meetings} />
-      <Meetings meetings={meetings} />
+      <CalendarDaysRender
+        onMeetingOpen={onMeetingOpen}
+        meetings={meetings}
+        onMeetingClick={onMeetingClick}
+      />
+      <Meeting />
     </Week>
   );
 }

@@ -1,17 +1,13 @@
 import * as constants from "../constants";
-import { Member, Meeting } from "../types";
+import { INewMeeting } from "../types";
 
 export interface MeetingOpen {
   type: constants.OPEN_MEETING;
+  payload: number;
 }
 
 export interface MeetingClose {
   type: constants.CLOSE_MEETING;
-}
-
-export interface MemberAdd {
-  type: constants.ADD_MEMBER;
-  payload: Member;
 }
 
 export interface MessageAdd {
@@ -21,19 +17,25 @@ export interface MessageAdd {
 
 export interface MeetingCreate {
   type: constants.CREATE_MEETING;
-  payload: Meeting;
+  payload: INewMeeting;
+}
+
+export interface MeetingNew {
+  type: constants.NEW_MEETING;
+  payload: Date;
 }
 
 export type reduxActions =
-  | MeetingOpen
   | MeetingClose
+  | MeetingOpen
   | MeetingCreate
-  | MemberAdd
+  | MeetingNew
   | MessageAdd;
 
-export function openMeeting(): MeetingOpen {
+export function openMeeting(meetingId: number): MeetingOpen {
   return {
-    type: constants.OPEN_MEETING
+    type: constants.OPEN_MEETING,
+    payload: meetingId
   };
 }
 
@@ -43,14 +45,7 @@ export function closeMeeting(): MeetingClose {
   };
 }
 
-export function addMember(object: Member): MemberAdd {
-  return {
-    payload: object,
-    type: constants.ADD_MEMBER
-  };
-}
-
-export function createMeeting(object: Meeting): MeetingCreate {
+export function createMeeting(object: INewMeeting): MeetingCreate {
   return {
     payload: object,
     type: constants.CREATE_MEETING
@@ -61,5 +56,12 @@ export function addMessage(text: string): MessageAdd {
   return {
     payload: text,
     type: constants.ADD_MESSAGE
+  };
+}
+
+export function newMeeting(day: Date): MeetingNew {
+  return {
+    payload: day,
+    type: constants.NEW_MEETING
   };
 }

@@ -3,7 +3,7 @@ import Calendar from "./containers/Calendar";
 import Chat from "./containers/Chat";
 
 class App extends React.Component {
-  public render() {
+  render() {
     return (
       <div className="App">
         <Calendar />

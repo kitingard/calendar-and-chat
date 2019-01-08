@@ -2,23 +2,16 @@ import * as moment from "moment";
 import * as React from "react";
 import styled from "styled-components";
 import MeetingCard from "./MeetingCard";
-import createWeek from "../../helpers/functions";
-import { Meeting } from "src/types";
+import { createWeek } from "../../helpers/functions";
+import { IMeeting } from "src/types";
 import CalendarFieldWrap from "../../styles/CalendarFieldWrap";
 
 const DayWrapper = styled.div`
   position: relative;
   width: 100vw;
   height: 100vh;
-`;
-const CurrentDay = styled(DayWrapper)`
-  position: absolute;
-  top: 0;
-  left: -1px;
-  width: calc(100% - 1px);
-  height: 100vh;
-  background-color: rgba(47, 129, 205, 0.1);
-  border: 1px solid #dedede;
+  background-color: ${(props: CurrentDayType) =>
+    props.currentDay ? "rgba(47, 129, 205, 0.1)" : "transparent"};
 `;
 const Day = styled.div`
   width: 10vw;
@@ -52,28 +45,29 @@ export interface CurrentDayType {
 }
 
 export interface CalendarDaysRenderProps {
-  onMeetingOpen?: () => void;
-  meetings: Meeting[];
+  onMeetingOpen: (day: Date) => void;
+  onMeetingClick: (meetingId: number) => void;
+  meetings: IMeeting[];
 }
 
-function CalendarDaysRender(
-  { onMeetingOpen, meetings }: CalendarDaysRenderProps,
-  { currentDay }: CurrentDayType
-) {
+function CalendarDaysRender({
+  onMeetingOpen: onCalendarClick,
+  meetings,
+  onMeetingClick
+}: CalendarDaysRenderProps) {
   return (
     <React.Fragment>
       {createWeek().map((momentDate: moment.Moment, i: number) => {
         const currentMeetings = meetings.filter(meeting =>
           momentDate.isSame(meeting.start, "day")
         );
-        if (momentDate.isSame(today, "day")) {
-          currentDay = true;
-        } else {
-          currentDay = false;
-        }
+        const currentDay = momentDate.isSame(today, "day");
+
         return (
-          <DayWrapper key={i}>
-            <Day>{momentDate.format("dddd")}</Day>
+          <DayWrapper key={i} currentDay={currentDay}>
+            <Day onClick={() => console.log(momentDate.format("DD"))}>
+              {momentDate.format("dddd")}
+            </Day>
             {i === 6 || i === 5 ? (
               <React.Fragment>
                 <DateDisabled>{momentDate.format("DD MMM")}</DateDisabled>
@@ -83,10 +77,11 @@ function CalendarDaysRender(
               <React.Fragment>
                 <Date>{momentDate.format("DD MMM")}</Date>
                 <MeetingCard
-                  onDoubleClick={onMeetingOpen}
+                  onMeetingClick={onMeetingClick}
+                  currentDate={momentDate.toDate()}
+                  onCalendarClick={onCalendarClick}
                   meetings={currentMeetings}
                 />
-                {currentDay && <CurrentDay />}
               </React.Fragment>
             )}
           </DayWrapper>

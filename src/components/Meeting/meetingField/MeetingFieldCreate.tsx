@@ -3,26 +3,13 @@ import * as React from "react";
 import styled from "styled-components";
 import MeetingField from "../../../styles/MeetingField";
 import { SELECT_FORMAT } from "../../../constants";
+import MembersWrap from "../members/MembersWrap";
+import Button from "../../../styles/Button";
+import { INewMeeting, IMember } from "../../../types";
+import MeetingInput from "../../../styles/MeetingInput";
+import MeetingLabel from "../../../styles/MeetingLabel";
+import { calculateBetween } from "../../../helpers/functions";
 
-import "moment/locale/ru";
-
-const MeetingLabel = styled.label`
-  width: 128px;
-  height: 20px;
-  margin-right: 6px;
-  margin-top: 5px;
-  font-size: 13px;
-  text-indent: 5px;
-`;
-const MeetingInput = styled.input`
-  width: 158px;
-  height: 26px;
-  margin-bottom: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: 3px;
-  font-size: 13px;
-  text-indent: 5px;
-`;
 const MeetingText = styled.p`
   width: 128px;
   height: 20px;
@@ -41,18 +28,34 @@ const MeetingSelect = styled.select`
   border-radius: 3px;
   font-size: 13px;
 `;
+const CancelBtn = styled(Button)`
+  position: absolute;
+  bottom: 24px;
+  right: 137px;
+  color: #000000;
+`;
+const SaveBtn = styled(Button)`
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  background: #2f81cd;
+  color: #ffffff;
+`;
+
 const MeetingSelectOption = styled.option``;
-const today: string = moment().format("dd DD.MM.YYYY");
+const formatToDay = (day: Date) => moment(day).format("dd DD.MM.YYYY");
 
 type MeetingFieldCreateProps = {
-  currentDate: Date;
+  currentMeeting: INewMeeting;
+  onMeetingClose: () => void;
+  onCreateMeeting: (meeting: INewMeeting) => void;
 };
 
 type MeetingFieldCreateState = {
-  meetingDay: string;
   meetingEndTime: Date;
   meetingStartTime: Date;
   meetingTitle: string;
+  members: IMember[];
 };
 
 class MeetingFieldCreate extends React.Component<
@@ -63,22 +66,25 @@ class MeetingFieldCreate extends React.Component<
     super(props);
 
     this.state = {
-      meetingDay: "",
-      meetingEndTime: moment(this.props.currentDate)
+      members: this.props.currentMeeting.members,
+      meetingEndTime: moment(this.props.currentMeeting.end)
         .add(1, "h")
         .toDate(),
-      meetingStartTime: moment(this.props.currentDate).toDate(),
-      meetingTitle: ""
+      meetingStartTime: moment(this.props.currentMeeting.start).toDate(),
+      meetingTitle: this.props.currentMeeting.title
     };
   }
 
-  public onTitleChange = (evt: any) =>
+  onTitleChange = (evt: any) =>
     this.setState({
       meetingTitle: evt.target.value
     });
 
-  private onStartTimeChange = (evt: any) => {
-    const newMeetingStartTime = this.convertValueToMoment(evt.target.value);
+  onStartTimeChange = (evt: any) => {
+    const newMeetingStartTime = this.convertValueToMoment(
+      evt.target.value,
+      "start"
+    );
     const meetingEndTime = moment(this.state.meetingEndTime);
 
     if (meetingEndTime.isSameOrBefore(newMeetingStartTime)) {
@@ -96,65 +102,60 @@ class MeetingFieldCreate extends React.Component<
     }
   };
 
-  private onEndTimeChange = (evt: any) => {
-    const meetingEndTime = this.convertValueToMoment(evt.target.value);
+  onEndTimeChange = (evt: any) => {
+    const meetingEndTime = this.convertValueToMoment(evt.target.value, "end");
 
     this.setState({
       meetingEndTime: meetingEndTime.toDate()
     });
   };
 
-  private convertValueToMoment(value: string): moment.Moment {
+  convertValueToMoment(
+    value: string,
+    stateField: "start" | "end"
+  ): moment.Moment {
     const [hours, minutes] = value.split(":");
-    return moment(this.props.currentDate)
+    const convertingDate =
+      stateField === "start"
+        ? this.state.meetingStartTime
+        : this.state.meetingEndTime;
+    return moment(convertingDate)
       .hours(Number(hours))
       .minutes(Number(minutes));
   }
 
-  private calculateBetween(
-    startDate: Date = moment()
-      .hours(9)
-      .minutes(0)
-      .toDate()
-  ): string[] {
-    const start = moment(startDate);
-    const end = moment(startDate)
-      .hours(18)
-      .minutes(30);
-
-    const result = [];
-
-    do {
-      result.push(start.format(SELECT_FORMAT));
-      start.add(30, "m");
-    } while (end.isSameOrAfter(start));
-
-    return result;
+  calculateStartHours(): string[] {
+    return calculateBetween();
   }
 
-  private calculateStartHours(): string[] {
-    return this.calculateBetween();
-  }
-
-  private calculateEndHours(): string[] {
+  calculateEndHours(): string[] {
     const offset = moment(this.state.meetingStartTime)
       .add(30, "m")
       .toDate();
-
-    return this.calculateBetween(offset);
+    return calculateBetween(offset);
   }
 
-  // public onStartTimeChange = (evt: any) =>
-  //   this.setState({
-  //     meetingStartTime: evt.target.value
-  //   });
+  createMeeting = () => {
+    const {
+      meetingTitle,
+      meetingStartTime,
+      meetingEndTime,
+      members
+    } = this.state;
+    this.props.onCreateMeeting({
+      title: meetingTitle,
+      start: meetingStartTime,
+      end: meetingEndTime,
+      members: members
+    });
+  };
 
-  // public onEndTimeChange = (evt: any) =>
-  //   this.setState({
-  //     meetingEndTime: evt.target.value
-  //   });
+  addMembers = (membersArray: IMember[]) =>
+    this.setState({
+      members: membersArray
+    });
 
-  public render() {
+  render() {
     return (
       <React.Fragment>
         <MeetingLabel htmlFor="meetingTitle">Тема встречи</MeetingLabel>
@@ -165,7 +166,7 @@ class MeetingFieldCreate extends React.Component<
           onChange={this.onTitleChange}
         />
         <MeetingText>День встречи</MeetingText>
-        <MeetingField>{today}</MeetingField>
+        <MeetingField>{formatToDay(this.state.meetingStartTime)}</MeetingField>
         <MeetingLabel htmlFor="meetingStartTime">Начало встречи</MeetingLabel>
         <MeetingSelect
           id="meetingStartTime"
@@ -190,6 +191,9 @@ class MeetingFieldCreate extends React.Component<
             ))}
           </React.Fragment>
         </MeetingSelect>
+        <MembersWrap addMembers={this.addMembers} />
+        <CancelBtn onClick={this.props.onMeetingClose}>Отмена</CancelBtn>
+        <SaveBtn onClick={this.createMeeting}>Сохранить</SaveBtn>
       </React.Fragment>
     );
   }
