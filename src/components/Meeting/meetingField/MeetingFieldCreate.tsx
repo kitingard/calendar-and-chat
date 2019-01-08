@@ -112,7 +112,7 @@ class MeetingFieldCreate extends React.Component<
   }
 
   private calculateBetween(
-    startDate: Date = moment(this.props.currentDate)
+    startDate: Date = moment()
       .hours(9)
       .minutes(0)
       .toDate()

@@ -7,8 +7,18 @@ import { Meeting } from "src/types";
 import CalendarFieldWrap from "../../styles/CalendarFieldWrap";
 
 const DayWrapper = styled.div`
+  position: relative;
   width: 100vw;
   height: 100vh;
+`;
+const CurrentDay = styled(DayWrapper)`
+  position: absolute;
+  top: 0;
+  left: -1px;
+  width: calc(100% - 1px);
+  height: 100vh;
+  background-color: rgba(47, 129, 205, 0.1);
+  border: 1px solid #dedede;
 `;
 const Day = styled.div`
   width: 10vw;
@@ -35,23 +45,32 @@ const DateDisabled = styled(Date)`
 const CalendarFieldDisabled = styled(CalendarFieldWrap)`
   background-color: rgba(196, 196, 196, 0.3);
 `;
+const today: moment.Moment = moment();
 
-type CalendarDaysRenderProps = {
+export interface CurrentDayType {
+  currentDay: boolean;
+}
+
+export interface CalendarDaysRenderProps {
   onMeetingOpen?: () => void;
   meetings: Meeting[];
-};
+}
 
-function CalendarDaysRender({
-  onMeetingOpen,
-  meetings
-}: CalendarDaysRenderProps) {
+function CalendarDaysRender(
+  { onMeetingOpen, meetings }: CalendarDaysRenderProps,
+  { currentDay }: CurrentDayType
+) {
   return (
     <React.Fragment>
       {createWeek().map((momentDate: moment.Moment, i: number) => {
         const currentMeetings = meetings.filter(meeting =>
           momentDate.isSame(meeting.start, "day")
         );
-
+        if (momentDate.isSame(today, "day")) {
+          currentDay = true;
+        } else {
+          currentDay = false;
+        }
         return (
           <DayWrapper key={i}>
             <Day>{momentDate.format("dddd")}</Day>
@@ -67,6 +86,7 @@ function CalendarDaysRender({
                   onDoubleClick={onMeetingOpen}
                   meetings={currentMeetings}
                 />
+                {currentDay && <CurrentDay />}
               </React.Fragment>
             )}
           </DayWrapper>

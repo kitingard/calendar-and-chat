@@ -1,7 +1,8 @@
 import * as React from "react";
 import styled from "styled-components";
-import { Meeting } from "../../types";
 import CalendarDaysRender from "./CalendarDaysRender";
+import Meetings from "../../containers/Meetings";
+import { Meeting } from "../../types";
 
 const Week = styled.div`
   position: relative;
@@ -15,24 +16,16 @@ const Week = styled.div`
   box-sizing: border-box;
 `;
 
-// const CurrentDayWrapper = styled(DayWrapper)`
-//     background: rgba(47, 129, 205, 0.1);
-// `
-// const CurrentDay = styled(Day)`
-//     border-left: 1px solid #DEDEDE;
-//     border-right: 1px solid #DEDEDE;
-// `
-
 export interface CalendarProps {
   onMeetingOpen?: () => void;
-  onChatOpen?: () => void;
   meetings: Meeting[];
 }
 
-function Calendar({ onMeetingOpen, onChatOpen, meetings }: CalendarProps) {
+function Calendar({ onMeetingOpen, meetings }: CalendarProps) {
   return (
     <Week>
       <CalendarDaysRender onMeetingOpen={onMeetingOpen} meetings={meetings} />
+      <Meetings meetings={meetings} />
     </Week>
   );
 }

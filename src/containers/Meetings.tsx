@@ -1,5 +1,6 @@
 import * as actions from "../actions";
-import Meeting from "../components/Meeting/Meeting";
+import Meetings from "../components/Meeting/Meetings";
+import { Meeting } from "../types";
 
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
@@ -15,11 +16,13 @@ export function mapStateToProps({ meetingOpen, currentDate }: StoreState) {
 export function mapDispatchToProps(dispatch: Dispatch<actions.reduxActions>) {
   return {
     onMeetingClose: () => dispatch(actions.closeMeeting()),
-    onMeetingOpen: () => dispatch(actions.openMeeting())
+    onMeetingOpen: () => dispatch(actions.openMeeting()),
+    onCreateMeeting: (object: Meeting) =>
+      dispatch(actions.createMeeting(object))
   };
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Meeting);
+)(Meetings);

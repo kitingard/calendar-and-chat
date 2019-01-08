@@ -4,6 +4,7 @@ import CalendarFieldWrap from "../../styles/CalendarFieldWrap";
 import { Meeting } from "../../types";
 
 const Card = styled.div`
+  position: relative;
   padding: 17px 0px;
   background-color: #2f81cd;
   font-size: 14px;
@@ -25,7 +26,7 @@ const MeetingCard = ({ onDoubleClick, meetings }: MeetingCardProps) => (
           alert(meeting.members.map(({ name }) => name).join(", "))
         }
       >
-        >>{meeting.title}
+        {meeting.start.toTimeString().slice(0, 5)} >> {meeting.title}
       </Card>
     ))}
   </CalendarFieldWrap>

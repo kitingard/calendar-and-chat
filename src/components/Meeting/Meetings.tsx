@@ -5,6 +5,8 @@ import cross from "../../assets/img/cross.svg";
 import MembersWrap from "../../containers/MembersWrap";
 import Button from "../../styles/Button";
 import Form from "../../styles/Form";
+// import { Meeting, Member } from "../../types";
+import { Meeting } from "../../types";
 
 import MeetingWrapper from "../../styles/MeetingWrapper";
 import ModalTitle from "../../styles/ModalTitle";
@@ -44,28 +46,53 @@ const SaveBtn = styled(Button)`
 
 // const today:string = moment().format('dd DD.MM.YYYY')
 export interface MeetingProps {
+  meetings: Meeting[];
   currentDate: Date;
   meetingOpen: boolean;
-  onMeetingClose?: () => void;
-  onAddMember?: () => void;
+  onMeetingClose: () => void;
+  onCreateMeeting: (object: Meeting) => void;
 }
 
 export interface MeetingState {
   name: string;
   memberState: string;
+  newMeeting: Meeting;
 }
 
 export const MeetingName = (props: any) => (
   <React.Fragment>{props.text}</React.Fragment>
 );
 
-class Meeting extends React.Component<MeetingProps> {
+class Meetings extends React.Component<MeetingProps> {
   public state = {
     name: "",
-    memberState: "create"
+    memberState: "create",
+    newMeeting: {}
   };
 
-  public stateOfMembers(stateMember: string) {
+  // addNewMeeting = (
+  //   members: Member[],
+  //   title: string,
+  //   startDate: Date,
+  //   endDate: Date
+  // ) =>
+  //   this.setState(state => ({
+  //     newMeeting: {
+  //       members: members,
+  //       title: title,
+  //       start: startDate,
+  //       end: endDate
+  //     }
+  //   }));
+
+  // createNewMeeting = () => {
+  //   addNewMeeting();
+  //   this.props.onCreateMeeting(this.state.newMeeting);
+  //   this.props.onMeetingClose();
+  //   alert(JSON.stringify(this.state.newMeeting));
+  // };
+
+  stateOfMembers(stateMember: string) {
     if (stateMember === "create") {
       this.state.name = "Встреча";
     } else if (stateMember === "active") {
@@ -91,7 +118,7 @@ class Meeting extends React.Component<MeetingProps> {
               {/* <MeetingFieldHold />  */}
               <MembersWrap />
               <CancelBtn>Отмена</CancelBtn>
-              <SaveBtn onClick={this.props.onAddMember}>Сохранить</SaveBtn>
+              <SaveBtn>Сохранить</SaveBtn>
             </Form>
           </MeetingWrapper>
         )}
@@ -100,4 +127,4 @@ class Meeting extends React.Component<MeetingProps> {
   }
 }
 
-export default Meeting;
+export default Meetings;

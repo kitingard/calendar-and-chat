@@ -1,5 +1,5 @@
 import * as constants from "../constants";
-import { Member } from "../types";
+import { Member, Meeting } from "../types";
 
 export interface MeetingOpen {
   type: constants.OPEN_MEETING;
@@ -19,7 +19,17 @@ export interface MessageAdd {
   payload: string;
 }
 
-export type reduxActions = MeetingOpen | MeetingClose | MemberAdd | MessageAdd;
+export interface MeetingCreate {
+  type: constants.CREATE_MEETING;
+  payload: Meeting;
+}
+
+export type reduxActions =
+  | MeetingOpen
+  | MeetingClose
+  | MeetingCreate
+  | MemberAdd
+  | MessageAdd;
 
 export function openMeeting(): MeetingOpen {
   return {
@@ -37,6 +47,13 @@ export function addMember(object: Member): MemberAdd {
   return {
     payload: object,
     type: constants.ADD_MEMBER
+  };
+}
+
+export function createMeeting(object: Meeting): MeetingCreate {
+  return {
+    payload: object,
+    type: constants.CREATE_MEETING
   };
 }
 

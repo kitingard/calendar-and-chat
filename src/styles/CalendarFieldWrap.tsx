@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const CalendarFieldWrap = styled.div`
+  position: relative;
   height: 85vh;
   background: #ffffff;
   border-right: 1px solid #dedede;

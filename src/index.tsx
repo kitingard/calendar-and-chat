@@ -56,7 +56,6 @@ const store = createStore<StoreState, any, any, any>(
   openModal,
   {
     currentDate: moment()
-      .subtract(1, "day")
       .hours(9)
       .minutes(0)
       .toDate(),

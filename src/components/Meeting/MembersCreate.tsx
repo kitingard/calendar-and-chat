@@ -68,7 +68,7 @@ class NewMember extends React.Component<
   //   return formValid;
   // }
 
-  public addNewMember = (member: string) =>
+  addNewMember = (member: string) =>
     this.setState(state => ({
       members: {
         ...this.state.members,
@@ -80,12 +80,12 @@ class NewMember extends React.Component<
       }
     }));
 
-  public onMemberNameChange = (evt: any) =>
+  onMemberNameChange = (evt: any) =>
     this.setState({
       memberName: evt.target.value
     });
 
-  public onAdd = () => {
+  onAdd = () => {
     this.props.onAddMember(this.state.members);
     this.addNewMember(this.state.memberName);
     this.setState({ memberName: "" });

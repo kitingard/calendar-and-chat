@@ -4,6 +4,9 @@ export type OPEN_MEETING = typeof OPEN_MEETING;
 export const CLOSE_MEETING = "CLOSE_MEETING";
 export type CLOSE_MEETING = typeof CLOSE_MEETING;
 
+export const CREATE_MEETING = "CREATE_MEETING";
+export type CREATE_MEETING = typeof CREATE_MEETING;
+
 export const ADD_MEMBER = "ADD_MEMBER";
 export type ADD_MEMBER = typeof ADD_MEMBER;
 
