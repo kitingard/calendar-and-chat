@@ -1,31 +1,22 @@
-import styled from "styled-components";
 import * as moment from "moment";
 import * as React from "react";
-import CalendarFieldWrap from "../../styles/CalendarFieldWrap";
-import { IMeeting } from "../../types";
+import { IMeeting } from "../../../types";
+import CalendarFieldWrap from "../../../styles/CalendarFieldWrap";
+import { Card } from "./CalendarFieldsTheme";
 
-const Card = styled.div`
-  position: relative;
-  padding: 17px 0px;
-  background-color: #2f81cd;
-  font-size: 14px;
-  text-indent: 5px;
-  color: #ffffff;
-`;
-
-type MeetingCardProps = {
+type CalendarFieldsProps = {
   onMeetingClick: (meetingId: number) => void;
   onCalendarClick: (day: Date) => void;
   meetings: IMeeting[];
   currentDate: Date;
 };
 
-const MeetingCard = ({
+const CalendarFields = ({
   onCalendarClick,
   meetings,
   currentDate,
   onMeetingClick
-}: MeetingCardProps) => (
+}: CalendarFieldsProps) => (
   <CalendarFieldWrap onDoubleClick={() => onCalendarClick(currentDate)}>
     {meetings.map((meeting, i: number) => (
       <Card key={i} onClick={() => onMeetingClick(meeting.id)}>
@@ -35,4 +26,4 @@ const MeetingCard = ({
   </CalendarFieldWrap>
 );
 
-export default MeetingCard;
+export default CalendarFields;

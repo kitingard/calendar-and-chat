@@ -4,6 +4,9 @@ import {
   ADD_MESSAGE,
   NEW_MEETING,
   CREATE_MEETING,
+  CREATE_USER,
+  DELETE_MEETING,
+  EDIT_MEETING,
   OPEN_MEETING
 } from "../constants";
 import { StoreState, IMeeting } from "../types";
@@ -23,6 +26,7 @@ export function openModal(state: StoreState, action: reduxActions): StoreState {
     case ADD_MESSAGE:
       const addMessage = action.payload;
       const messages = [...state.messages, addMessage];
+      saveToLocalStorage("chat", JSON.stringify(messages));
       return {
         ...state,
         messages
@@ -48,6 +52,40 @@ export function openModal(state: StoreState, action: reduxActions): StoreState {
         ...state,
         meetings: newMeetingsArray,
         currentMeeting: null
+      };
+    case DELETE_MEETING:
+      const idDelete = action.payload;
+      const stateMeetingDelete = state.meetings.filter(
+        elem => elem.id !== idDelete
+      );
+      saveToLocalStorage("meetings", JSON.stringify(stateMeetingDelete));
+      return {
+        ...state,
+        meetings: stateMeetingDelete,
+        currentMeeting: null
+      };
+    case EDIT_MEETING:
+      const idDeleteEdit = action.payload.id;
+      const stateMeetingEdites = state.meetings.filter(
+        elem => elem.id !== idDeleteEdit
+      );
+      const editedMeetingsArray = [...stateMeetingEdites, action.payload];
+      saveToLocalStorage("meetings", JSON.stringify(editedMeetingsArray));
+      return {
+        ...state,
+        meetings: editedMeetingsArray,
+        currentMeeting: null
+      };
+    case CREATE_USER:
+      const newUserId = state.chatUsers.length;
+      const newUsersArray = [
+        ...state.chatUsers,
+        { ...action.payload, id: newUserId }
+      ];
+      return {
+        ...state,
+        chatUsers: newUsersArray,
+        currentUser: action.payload
       };
   }
   return state;

@@ -1,43 +1,37 @@
 import * as moment from "moment";
 import * as React from "react";
 import styled from "styled-components";
-import MeetingCard from "./MeetingCard";
-import { createWeek } from "../../helpers/functions";
+import CalendarFields from "../CalendarFields/CalendarFields";
+import { createWeek } from "../../../helpers/functions";
 import { IMeeting } from "src/types";
-import CalendarFieldWrap from "../../styles/CalendarFieldWrap";
+import {
+  DateDisabled,
+  CalendarFieldDisabled,
+  Date
+} from "./CalendarDaysRenderTheme";
 
 const DayWrapper = styled.div`
   position: relative;
   width: 100vw;
   height: 100vh;
-  background-color: ${(props: CurrentDayType) =>
+  background: ${(props: CurrentDayType) =>
     props.currentDay ? "rgba(47, 129, 205, 0.1)" : "transparent"};
 `;
 const Day = styled.div`
   width: 10vw;
-  margin: 28px 21px 20px;
+  padding: 28px 38px 20px 22px;
   font-size: 18px;
   line-height: 35px;
   text-align: center;
+  border-left: ${(props: CurrentDayType) =>
+    props.currentDay ? "1px solid #DEDEDE" : "none"};
+  border-right: ${(props: CurrentDayType) =>
+    props.currentDay ? "1px solid #DEDEDE" : "none"};
   :first-letter {
     text-transform: uppercase;
   }
 `;
-const Date = styled.p`
-  margin: 0px;
-  padding: 5px 89px 11px 0px;
-  border-right: 1px solid #dedede;
-  border-top: 1px solid #dedede;
-  font-size: 18px;
-  line-height: 22px;
-  text-align: center;
-`;
-const DateDisabled = styled(Date)`
-  background-color: rgba(196, 196, 196, 0.3);
-`;
-const CalendarFieldDisabled = styled(CalendarFieldWrap)`
-  background-color: rgba(196, 196, 196, 0.3);
-`;
+
 const today: moment.Moment = moment();
 
 export interface CurrentDayType {
@@ -45,13 +39,13 @@ export interface CurrentDayType {
 }
 
 export interface CalendarDaysRenderProps {
-  onMeetingOpen: (day: Date) => void;
+  onCalendarClick: (day: Date) => void;
   onMeetingClick: (meetingId: number) => void;
   meetings: IMeeting[];
 }
 
 function CalendarDaysRender({
-  onMeetingOpen: onCalendarClick,
+  onCalendarClick,
   meetings,
   onMeetingClick
 }: CalendarDaysRenderProps) {
@@ -65,7 +59,10 @@ function CalendarDaysRender({
 
         return (
           <DayWrapper key={i} currentDay={currentDay}>
-            <Day onClick={() => console.log(momentDate.format("DD"))}>
+            <Day
+              onClick={() => console.log(momentDate.format("DD"))}
+              currentDay={currentDay}
+            >
               {momentDate.format("dddd")}
             </Day>
             {i === 6 || i === 5 ? (
@@ -76,7 +73,7 @@ function CalendarDaysRender({
             ) : (
               <React.Fragment>
                 <Date>{momentDate.format("DD MMM")}</Date>
-                <MeetingCard
+                <CalendarFields
                   onMeetingClick={onMeetingClick}
                   currentDate={momentDate.toDate()}
                   onCalendarClick={onCalendarClick}

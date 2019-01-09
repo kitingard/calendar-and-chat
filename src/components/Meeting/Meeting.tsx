@@ -1,21 +1,21 @@
 import * as React from "react";
 import { IMeeting } from "../../types";
-import Modal from "./Modal";
-
-import MeetingFieldCreate from "./meetingField/MeetingFieldCreate";
+import Modal from "./Modal/Modal";
+import MeetingFieldCreate from "./MeetingFieldCreate/MeetingFieldCreate";
+import MeetingFieldEdit from "./MeetingFieldEdit/MeetingFieldEdit";
 
 export interface MeetingProps {
   meetings: IMeeting[];
   currentMeeting: IMeeting | null;
   onMeetingClose: () => void;
   onCreateMeeting: (object: IMeeting) => void;
+  onEditMeeting: (object: IMeeting) => void;
+  onDeleteMeeting: (meetingId: number) => void;
 }
 
 export interface MeetingState {
   name: string;
   memberState: string;
-  newMeeting: IMeeting;
-  onCreateMeeting: (meeting: IMeeting) => void;
 }
 
 class Meeting extends React.Component<MeetingProps> {
@@ -41,11 +41,20 @@ class Meeting extends React.Component<MeetingProps> {
         title={this.stateOfMembers(this.state.memberState)}
         onClose={this.props.onMeetingClose}
       >
-        <MeetingFieldCreate
-          onCreateMeeting={this.props.onCreateMeeting}
-          onMeetingClose={this.props.onMeetingClose}
-          currentMeeting={(this.props.currentMeeting as any) as IMeeting}
-        />
+        {this.props.currentMeeting && this.props.currentMeeting.id + 1 ? (
+          <MeetingFieldEdit
+            currentMeeting={(this.props.currentMeeting as any) as IMeeting}
+            onEditMeeting={this.props.onEditMeeting}
+            onDeleteMeeting={this.props.onDeleteMeeting}
+            onMeetingClose={this.props.onMeetingClose}
+          />
+        ) : (
+          <MeetingFieldCreate
+            onCreateMeeting={this.props.onCreateMeeting}
+            onMeetingClose={this.props.onMeetingClose}
+            currentMeeting={(this.props.currentMeeting as any) as IMeeting}
+          />
+        )}
       </Modal>
     );
   }

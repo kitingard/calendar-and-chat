@@ -1,34 +1,12 @@
 import * as React from "react";
-import styled from "styled-components";
-import { IMember } from "../../../types";
-import MeetingField from "../../../styles/MeetingField";
-import MeetingInput from "../../../styles/MeetingInput";
-
-const MembersList = styled.ul`
-  max-height: 120px;
-  overflow-y: scroll;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-`;
-const MembersLi = styled.li`
-  padding: 0;
-  margin: 0;
-`;
-const MeetingBtn = styled.button`
-  padding: 0px;
-  margin-left: 135px;
-  color: #2f81cd;
-  background-color: transparent;
-  border: none;
-  border-bottom: 1px dashed #2f81cd;
-  font-size: 13px;
-`;
-const None = styled.div`
-  display: none;
-`;
+import { IMember, INewMeeting, IMeeting } from "../../../../types";
+import { TEXT_LENGHT } from "../../../../constants";
+import { MembersList, MembersLi, MeetingBtn } from "./MembersCreateTheme";
+import MeetingField from "../../../../styles/MeetingField";
+import MeetingInput from "../../../../styles/MeetingInput";
 
 export interface MembersCreateProps {
+  currentMeeting: IMeeting | INewMeeting;
   addMembers: (membersArray: IMember[]) => void;
 }
 
@@ -46,7 +24,7 @@ class MembersCreate extends React.Component<
 
     this.state = {
       memberName: "",
-      members: []
+      members: this.props.currentMeeting.members
     };
   }
 
@@ -80,23 +58,20 @@ class MembersCreate extends React.Component<
     return (
       <React.Fragment>
         <MembersList>
-          {Object.keys(this.state.members).length > 0 ? (
-            Object.keys(this.state.members)
+          {this.state.members.length > 0 &&
+            this.state.members
               .sort((a: any, b: any) => a - b)
-              .map(memberId => {
-                const member = this.state.members[memberId];
+              .map((member, i: number) => {
                 return (
                   <MembersLi key={member.id}>
                     <MeetingField>{member.name}</MeetingField>
                   </MembersLi>
                 );
-              })
-          ) : (
-            <None />
-          )}
+              })}
           <MembersLi>
             <MeetingInput
               type="text"
+              maxLength={TEXT_LENGHT}
               value={this.state.memberName}
               onChange={this.onMemberNameChange}
             />

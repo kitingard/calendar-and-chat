@@ -1,5 +1,5 @@
 import * as actions from "../actions";
-import Calendar from "../components/Calendar/Calendar";
+import Calendar from "../components/Calendar/Calendar/Calendar";
 
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
@@ -13,7 +13,7 @@ export function mapStateToProps({ meetings }: StoreState) {
 
 export function mapDispatchToProps(dispatch: Dispatch<actions.reduxActions>) {
   return {
-    onMeetingOpen: (day: Date) => dispatch(actions.newMeeting(day)),
+    onCalendarClick: (day: Date) => dispatch(actions.newMeeting(day)),
     onMeetingClick: (meetingIg: number) =>
       dispatch(actions.openMeeting(meetingIg))
   };

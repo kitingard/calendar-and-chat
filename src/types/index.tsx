@@ -1,10 +1,9 @@
 export interface StoreState {
   chatUsers: IUser[];
   currentMeeting: IMeeting | INewMeeting | null;
-  currentUser: IUser;
+  currentUser: INewUser;
   messages: string[];
   meetings: IMeeting[];
-  members: IMember[];
 }
 
 export interface IMember {
@@ -30,6 +29,12 @@ export interface IMeeting {
 
 export interface IUser {
   id: number;
+  name: string;
+  project: string;
+  selfdescription: string;
+}
+
+export interface INewUser {
   name: string;
   project: string;
   selfdescription: string;

@@ -1,48 +1,19 @@
 import * as moment from "moment";
 import * as React from "react";
-import styled from "styled-components";
-import MeetingField from "../../../styles/MeetingField";
-import { SELECT_FORMAT } from "../../../constants";
-import MembersWrap from "../members/MembersWrap";
-import Button from "../../../styles/Button";
+import { SELECT_FORMAT, TEXT_LENGHT } from "../../../constants";
+import MembersWrap from "../members/MembersWrap/MembersWrap";
 import { INewMeeting, IMember } from "../../../types";
+import {
+  CancelBtn,
+  MeetingLabel,
+  MeetingSelect,
+  MeetingText
+} from "../../../styles/MeetingTheme";
 import MeetingInput from "../../../styles/MeetingInput";
-import MeetingLabel from "../../../styles/MeetingLabel";
+import MeetingField from "../../../styles/MeetingField";
+import SaveBtn from "../../../styles/SaveBtn";
 import { calculateBetween } from "../../../helpers/functions";
 
-const MeetingText = styled.p`
-  width: 128px;
-  height: 20px;
-  padding: 0px;
-  margin-right: 6px;
-  margin-top: 5px;
-  font-size: 13px;
-  text-indent: 5px;
-`;
-const MeetingSelect = styled.select`
-  width: 162px;
-  height: 28px;
-  margin-bottom: 10px;
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: 3px;
-  font-size: 13px;
-`;
-const CancelBtn = styled(Button)`
-  position: absolute;
-  bottom: 24px;
-  right: 137px;
-  color: #000000;
-`;
-const SaveBtn = styled(Button)`
-  position: absolute;
-  bottom: 24px;
-  right: 24px;
-  background: #2f81cd;
-  color: #ffffff;
-`;
-
-const MeetingSelectOption = styled.option``;
 const formatToDay = (day: Date) => moment(day).format("dd DD.MM.YYYY");
 
 type MeetingFieldCreateProps = {
@@ -67,9 +38,7 @@ class MeetingFieldCreate extends React.Component<
 
     this.state = {
       members: this.props.currentMeeting.members,
-      meetingEndTime: moment(this.props.currentMeeting.end)
-        .add(1, "h")
-        .toDate(),
+      meetingEndTime: moment(this.props.currentMeeting.end).toDate(),
       meetingStartTime: moment(this.props.currentMeeting.start).toDate(),
       meetingTitle: this.props.currentMeeting.title
     };
@@ -104,7 +73,6 @@ class MeetingFieldCreate extends React.Component<
 
   onEndTimeChange = (evt: any) => {
     const meetingEndTime = this.convertValueToMoment(evt.target.value, "end");
-
     this.setState({
       meetingEndTime: meetingEndTime.toDate()
     });
@@ -134,6 +102,20 @@ class MeetingFieldCreate extends React.Component<
       .toDate();
     return calculateBetween(offset);
   }
+  addMembers = (membersArray: IMember[]) =>
+    this.setState({
+      members: membersArray
+    });
+
+  addEndTime = (endTime: Date) =>
+    this.setState({
+      meetingEndTime: endTime
+    });
+
+  addStartTime = (startTime: Date) =>
+    this.setState({
+      meetingStartTime: startTime
+    });
 
   createMeeting = () => {
     const {
@@ -150,11 +132,6 @@ class MeetingFieldCreate extends React.Component<
     });
   };
 
-  addMembers = (membersArray: IMember[]) =>
-    this.setState({
-      members: membersArray
-    });
-
   render() {
     return (
       <React.Fragment>
@@ -162,6 +139,7 @@ class MeetingFieldCreate extends React.Component<
         <MeetingInput
           id="meetingTitle"
           type="text"
+          maxLength={TEXT_LENGHT}
           value={this.state.meetingTitle}
           onChange={this.onTitleChange}
         />
@@ -175,7 +153,7 @@ class MeetingFieldCreate extends React.Component<
         >
           <React.Fragment>
             {this.calculateStartHours().map((hour, i) => (
-              <MeetingSelectOption key={i}>{hour}</MeetingSelectOption>
+              <option key={i}>{hour}</option>
             ))}
           </React.Fragment>
         </MeetingSelect>
@@ -187,11 +165,14 @@ class MeetingFieldCreate extends React.Component<
         >
           <React.Fragment>
             {this.calculateEndHours().map((hour, i) => (
-              <MeetingSelectOption key={i}>{hour}</MeetingSelectOption>
+              <option key={i}>{hour}</option>
             ))}
           </React.Fragment>
         </MeetingSelect>
-        <MembersWrap addMembers={this.addMembers} />
+        <MembersWrap
+          addMembers={this.addMembers}
+          currentMeeting={this.props.currentMeeting}
+        />
         <CancelBtn onClick={this.props.onMeetingClose}>Отмена</CancelBtn>
         <SaveBtn onClick={this.createMeeting}>Сохранить</SaveBtn>
       </React.Fragment>

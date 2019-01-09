@@ -17,7 +17,11 @@ export function mapDispatchToProps(dispatch: Dispatch<actions.reduxActions>) {
   return {
     onMeetingClose: () => dispatch(actions.closeMeeting()),
     onCreateMeeting: (meeting: IMeeting) =>
-      dispatch(actions.createMeeting(meeting))
+      dispatch(actions.createMeeting(meeting)),
+    onEditMeeting: (meeting: IMeeting) =>
+      dispatch(actions.editMeeting(meeting)),
+    onDeleteMeeting: (meetingId: number) =>
+      dispatch(actions.deleteMeeting(meetingId))
   };
 }
 

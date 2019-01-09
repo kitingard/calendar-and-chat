@@ -13,8 +13,9 @@ import "moment/locale/ru";
 const store = createStore<StoreState, any, any, any>(
   openModal,
   {
+    chatUsers: [{ id: 0, name: "Anonim", project: "", selfdescription: "" }],
     meetings: getFromToLocalStorage("meetings") || [],
-    messages: ["Привет, как твои дела?"]
+    messages: getFromToLocalStorage("chat") || []
   },
   // @ts-ignore
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
