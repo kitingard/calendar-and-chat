@@ -3,6 +3,7 @@ import * as moment from "moment";
 import MembersCreate from "../MembersCreate/MembersCreate";
 import MembersChecked from "../MembersChecked/MembersChecked";
 import { IMember, IMeeting, INewMeeting } from "src/types";
+import { getTimes, findTime } from "../../../../helpers/functions";
 import { MeetingLabel } from "../../../../styles/MeetingTheme";
 
 export interface MembersWrapProps {
@@ -10,17 +11,44 @@ export interface MembersWrapProps {
   addMembers: (membersArray: IMember[]) => void;
 }
 
-class MembersWrap extends React.Component<MembersWrapProps> {
+export interface MembersWrapState {
+  members: IMember[];
+}
+
+class MembersWrap extends React.Component<MembersWrapProps, MembersWrapState> {
   state = {
-    checklist: false
+    members: this.props.currentMeeting.members
+  };
+
+  onMemberVisitedChange = (memberId: number) => {
+    const member = this.state.members[memberId];
+    const oldMembers = this.state.members.slice();
+    delete oldMembers[memberId];
+    const newMember = {
+      ...member,
+      visited: !member.visited
+    };
+
+    this.setState(
+      state => ({
+        members: [...oldMembers, (state.members[memberId] = newMember)]
+      }),
+      () => this.props.addMembers(this.state.members)
+    );
   };
 
   render() {
     return (
       <React.Fragment>
         <MeetingLabel>Участники встречи</MeetingLabel>
-        {moment(this.props.currentMeeting.start).isSame(moment(), "hour") ? (
-          <MembersChecked currentMeeting={this.props.currentMeeting} />
+        {getTimes(
+          moment(this.props.currentMeeting.start),
+          moment(this.props.currentMeeting.end)
+        ).find(findTime) ? (
+          <MembersChecked
+            currentMeeting={this.props.currentMeeting}
+            onMemberVisitedChange={this.onMemberVisitedChange}
+          />
         ) : (
           <MembersCreate
             addMembers={this.props.addMembers}

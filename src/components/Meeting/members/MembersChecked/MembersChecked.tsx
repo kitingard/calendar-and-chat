@@ -9,9 +9,13 @@ import {
 
 export interface MembersCheckedType {
   currentMeeting: IMeeting | INewMeeting;
+  onMemberVisitedChange: (memberID: number) => void;
 }
 
-function MembersChecked({ currentMeeting }: MembersCheckedType) {
+function MembersChecked({
+  currentMeeting,
+  onMemberVisitedChange
+}: MembersCheckedType) {
   return (
     <React.Fragment>
       <MembersList>
@@ -25,7 +29,7 @@ function MembersChecked({ currentMeeting }: MembersCheckedType) {
                     id="membersCheckbox"
                     type="checkbox"
                     checked={member.visited}
-                    // onChange={() => props.onClick(member.id)}
+                    onChange={() => onMemberVisitedChange(member.id)}
                   />
                   <MembersLabel htmlFor="membersCheckbox">
                     {member.name}
@@ -33,7 +37,6 @@ function MembersChecked({ currentMeeting }: MembersCheckedType) {
                 </MembersLi>
               );
             })}
-        })}
       </MembersList>
     </React.Fragment>
   );

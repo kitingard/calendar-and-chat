@@ -13,7 +13,11 @@ import {
 } from "../../../styles/MeetingTheme";
 import SaveBtn from "../../../styles/SaveBtn";
 import MeetingInput from "../../../styles/MeetingInput";
-import { calculateBetween } from "../../../helpers/functions";
+import {
+  calculateBetween,
+  getTimes,
+  findTime
+} from "../../../helpers/functions";
 
 const formatToDay = (day: Date) => moment(day).format("dd DD.MM.YYYY");
 
@@ -139,10 +143,18 @@ class MeetingFieldEdit extends React.Component<
     this.props.onDeleteMeeting(this.props.currentMeeting.id);
   };
 
+  findTime(time: string) {
+    const currentTime = moment();
+    return time === currentTime.format("HH:hh DD MMM");
+  }
+
   render() {
     return (
       <React.Fragment>
-        {moment(this.props.currentMeeting.start).isSame(moment(), "hour") ? (
+        {getTimes(
+          moment(this.props.currentMeeting.start),
+          moment(this.props.currentMeeting.end)
+        ).find(findTime) ? (
           <MeetingFieldDisabled currentMeeting={this.props.currentMeeting} />
         ) : (
           <React.Fragment>

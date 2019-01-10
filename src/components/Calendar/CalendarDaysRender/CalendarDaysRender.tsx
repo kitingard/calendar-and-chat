@@ -19,7 +19,8 @@ const DayWrapper = styled.div`
 `;
 const Day = styled.div`
   width: 10vw;
-  padding: 28px 38px 20px 22px;
+  margin-left: -1px;
+  padding: 28px 39px 20px 22px;
   font-size: 18px;
   line-height: 35px;
   text-align: center;
@@ -59,12 +60,7 @@ function CalendarDaysRender({
 
         return (
           <DayWrapper key={i} currentDay={currentDay}>
-            <Day
-              onClick={() => console.log(momentDate.format("DD"))}
-              currentDay={currentDay}
-            >
-              {momentDate.format("dddd")}
-            </Day>
+            <Day currentDay={currentDay}>{momentDate.format("dddd")}</Day>
             {i === 6 || i === 5 ? (
               <React.Fragment>
                 <DateDisabled>{momentDate.format("DD MMM")}</DateDisabled>

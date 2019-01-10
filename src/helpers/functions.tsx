@@ -42,3 +42,17 @@ export function calculateBetween(
 
   return result;
 }
+
+export function getTimes(startTime: moment.Moment, endTime: moment.Moment) {
+  var timeArray = [];
+  while (startTime <= endTime) {
+    timeArray.push(moment(startTime).format("HH:mm DD MMM"));
+    startTime = moment(startTime).add(1, "minutes");
+  }
+  return timeArray;
+}
+
+export function findTime(time: string) {
+  const currentTime = moment();
+  return time === currentTime.format("HH:hh DD MMM");
+}

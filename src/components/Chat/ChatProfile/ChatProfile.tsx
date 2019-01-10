@@ -1,5 +1,4 @@
 import * as React from "react";
-// import styled from "styled-components";
 import { INewUser, IUser } from "src/types";
 import { TEXT_LENGHT } from "../../../constants";
 import profileicon from "../../../assets/img/profile-icon.svg";

@@ -38,19 +38,6 @@ const MessageText = styled.p`
     props.savedMessage ? "#000000" : "#ffffff"};
 `;
 
-// const MessageAboutUser = styled.div`
-//   max-width: 130px;
-//   padding: 4px 6px;
-//   background: rgba(61, 69, 76, 0.75);
-//   border-radius: 10px;
-// `;
-// const MessageAboutUserText = styled.p`
-//   margin: 0px;
-//   font-size: 13px;
-//   text-indent: 5px;
-//   color: #ffffff;
-// `;
-
 export interface savedMessageType {
   savedMessage: boolean;
 }
@@ -162,18 +149,6 @@ class Chat extends React.Component<ChatProps, ChatState, savedMessageType> {
                   )}
                   {this.state.messages.map((message: string, i: number) => (
                     <MessageWrapper key={i} savedMessage={false}>
-                      {/* <MessageAboutUser>
-                        <MessageAboutUserText>
-                          {this.props.currentUser
-                            ? this.props.currentUser.project
-                            : "Нет описания"}
-                        </MessageAboutUserText>
-                        <MessageAboutUserText>
-                          {this.props.currentUser
-                            ? this.props.currentUser.selfdescription
-                            : "Нет описания"}
-                        </MessageAboutUserText>
-                      </MessageAboutUser> */}
                       <MessageUserName>
                         {this.props.currentUser
                           ? this.props.currentUser.name
