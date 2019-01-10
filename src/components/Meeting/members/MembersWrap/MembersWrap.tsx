@@ -22,8 +22,6 @@ class MembersWrap extends React.Component<MembersWrapProps, MembersWrapState> {
 
   onMemberVisitedChange = (memberId: number) => {
     const member = this.state.members[memberId];
-    const oldMembers = this.state.members.slice();
-    delete oldMembers[memberId];
     const newMember = {
       ...member,
       visited: !member.visited
@@ -31,7 +29,7 @@ class MembersWrap extends React.Component<MembersWrapProps, MembersWrapState> {
 
     this.setState(
       state => ({
-        members: [...oldMembers, (state.members[memberId] = newMember)]
+        members: [...state.members, (state.members[memberId] = newMember)]
       }),
       () => this.props.addMembers(this.state.members)
     );
